@@ -1,9 +1,22 @@
 /// <reference types="vite/client" />
 
-// interface ImportMetaEnv {
-//   readonly APP_BASE_API: string
-//   // 更多环境变量...
-// }
+interface ImportMetaEnv {
+  /**
+   * 应用标题
+   */
+  VITE_APP_TITLE: string
+  /**
+   * 应用端口
+   */
+  VITE_APP_PORT: number
+  /**
+   * API基础路径(反向代理)
+   */
+  VITE_APP_BASE_API: string
+}
+interface ImportMeta {
+  readonly env: ImportMetaEnv
+}
 
 declare module '*.vue' {
   import type { DefineComponent } from 'vue'
