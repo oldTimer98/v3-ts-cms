@@ -34,7 +34,7 @@
     "npm-run-all2": "^6.1.1",
     "prettier": "^3.0.3",
     "sass": "^1.69.5",
-    "typescript": "~5.2.0",
+    "typescript": "^5.2.0",
     "unplugin-auto-import": "^0.16.7",
     "unplugin-vue-components": "^0.25.2",
     "vite": "^4.4.11",
