@@ -1,1 +1,24 @@
-//
+:root {
+  --el-color-primary: #D68A8A;
+  --el-color-primary-light-1: #da9595;
+  --el-color-primary-light-2: #dea1a1;
+  --el-color-primary-light-3: #e2adad;
+  --el-color-primary-light-4: #e6b8b8;
+  --el-color-primary-light-5: #eac4c4;
+  --el-color-primary-light-6: #eed0d0;
+  --el-color-primary-light-7: #f2dbdb;
+  --el-color-primary-light-8: #f6e7e7;
+  --el-color-primary-light-9: #faf3f3;
+  --el-color-primary-dark-1: #c07c7c;
+  --el-color-primary-dark-2: #ab6e6e;
+  --el-color-primary-dark-3: #956060;
+  --el-color-primary-dark-4: #805252;
+  --el-color-primary-dark-5: #6b4545;
+  --el-color-primary-dark-6: #553737;
+  --el-color-primary-dark-7: #402929;
+  --el-color-primary-dark-8: #2a1b1b;
+  --el-color-primary-dark-9: #150d0d;
+  --el-button-hover-text-color: var(--el-color-primary);
+  --el-button-hover-bg-color:var(--el-color-primary-light-7);
+  --el-button-hover-border-color::var(--el-color-primary-light-9);
+}

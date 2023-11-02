@@ -9,7 +9,8 @@ module.exports = {
     'plugin:vue/vue3-essential', //扩展了 Vue.js 3 项目的基本配置。
     'eslint:recommended', //扩展了 ESLint 官方推荐的规则配置。
     '@vue/eslint-config-typescript', //扩展了与 TypeScript 一起使用的 Vue.js 配置。
-    '@vue/eslint-config-prettier/skip-formatting' //扩展了与 Prettier 配合使用时需要跳过的规则配置。
+    '@vue/eslint-config-prettier/skip-formatting', //扩展了与 Prettier 配合使用时需要跳过的规则配置。
+    './.eslintrc-auto-import.json'
   ],
   parserOptions: {
     ecmaVersion: 'latest' //指定 ECMAScript 的版本为最新版本。
