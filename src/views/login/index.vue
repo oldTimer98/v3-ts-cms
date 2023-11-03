@@ -4,8 +4,8 @@
       <div class="login_adv">
         <div class="login_adv__title">
           <h2>{{ $t('login.timeHomestay') }}</h2>
-          <h4>高性能 / delicate / 优雅</h4>
-          <p>基于Vue3 + Element-Plus 的中后台前端解决方案。</p>
+          <h4>{{ $t('login.slogan') }}</h4>
+          <p>{{ $t('login.describe') }}</p>
           <div>
             <span>
               <el-icon color="#0099FF" size="40"><ChromeFilled /></el-icon>
@@ -77,12 +77,12 @@
             <el-tab-pane :label="$t('login.accountLogin')" lazy>
               <password-form></password-form>
             </el-tab-pane>
-            <el-tab-pane :label="$t('login.phoneLogin')" lazy>
+            <el-tab-pane :label="$t('login.mobileLogin')" lazy>
               <phone-form></phone-form>
             </el-tab-pane>
           </el-tabs>
           <template v-if="appStore.MY_SHOW_LOGIN_OAUTH">
-            <el-divider>其它登录方式</el-divider>
+            <el-divider>{{ $t('login.signInOther') }}</el-divider>
             <div class="login-oauth">
               <el-button type="success" circle @click="wechatLogin">
                 <el-icon><ChatDotRound /></el-icon>
@@ -95,18 +95,22 @@
   </div>
   <el-dialog
     v-model="showWeChatLogin"
-    title="二维码登录"
+    :title="$t('login.wechatLoginTitle')"
     :width="400"
     destroy-on-close
   >
     <div class="qrCodeLogin">
       <QrCode class="qrCode" :text="WeChatLoginCode" :size="200"></QrCode>
-      <p class="msg">请使用微信扫一扫登录 <br />模拟3秒后自动扫描</p>
+      <p class="msg">
+        {{ $t('login.wechatLoginMsg', 1) }}<br />{{
+          $t('login.wechatLoginMsg', 2)
+        }}
+      </p>
       <div class="qrCodeLogin-result" v-if="isWeChatLoginResult">
         <el-result
           icon="success"
-          title="已扫描"
-          sub-title="请在设备中点击授权登录"
+          :title="$t('login.wechatLoginResult', 1)"
+          :sub-title="$t('login.wechatLoginResult', 2)"
         ></el-result>
       </div>
     </div>
@@ -118,11 +122,14 @@ import { useThemeStore } from '@/store/modules/theme'
 import { useAppStore } from '@/store/modules/app'
 import phoneForm from '@/views/login/c-cpns/phoneForm.vue'
 import passwordForm from '@/views/login/c-cpns/passwordForm.vue'
-import { useI18n } from 'vue-i18n'
-interface commandType {
-  name: string
-  value: string
+import useLocale from '@/hooks/useLocale'
+// 切换主题
+const themeStore = useThemeStore()
+const appStore = useAppStore()
+const configDark = () => {
+  themeStore.theme = themeStore.theme === 'light' ? 'dark' : 'light'
 }
+// 切换语言
 const languageList = reactive([
   {
     name: '简体中文',
@@ -133,14 +140,13 @@ const languageList = reactive([
     value: 'en'
   }
 ])
-const themeStore = useThemeStore()
-const appStore = useAppStore()
-const configDark = () => {
-  themeStore.theme = themeStore.theme === 'light' ? 'dark' : 'light'
+const { changeLocale } = useLocale()
+interface commandType {
+  name: string
+  value: string
 }
-const { locale } = useI18n()
 const configLang = (command: commandType) => {
-  locale.value = command.value
+  changeLocale(command.value)
 }
 
 // 第三方登录

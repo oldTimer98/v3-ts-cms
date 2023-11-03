@@ -67,6 +67,7 @@
     "onBeforeRouteUpdate": true,
     "useLink": true,
     "useRoute": true,
-    "useRouter": true
+    "useRouter": true,
+    "ElMessage": true
   }
 }

@@ -54,18 +54,19 @@
         >{{ $t('login.signIn') }}</el-button
       >
     </el-form-item>
-    <div class="login-reg">
+    <!-- <div class="login-reg">
       {{ $t('login.noAccount') }}
       <router-link to="/user_register">{{
         $t('login.createAccount')
       }}</router-link>
-    </div>
+    </div> -->
   </el-form>
 </template>
 
 <script setup lang="ts">
 import type { FormInstance, FormRules } from 'element-plus'
-
+import { useI18n } from 'vue-i18n'
+import useLocale from '@/hooks/useLocale'
 interface formType {
   user: string
   userType: string
@@ -79,26 +80,38 @@ const form = reactive<formType>({
   autoLogin: false
 })
 const loginForm = ref<FormInstance>()
-const rules = reactive<FormRules<formType>>({
-  user: [
-    { required: true, message: 'Please input Activity name', trigger: 'blur' },
-    { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' }
-  ],
-  userType: [
-    {
-      required: true,
-      message: 'Please select Activity zone',
-      trigger: 'change'
-    }
-  ],
+const { t } = useI18n()
+const rules = ref<FormRules<formType>>({
+  user: [{ required: true, message: t('login.userError'), trigger: 'blur' }],
   password: [
     {
       required: true,
-      message: 'Please select Activity zone',
-      trigger: 'change'
+      message: t('login.PWError'),
+      trigger: 'blur'
     }
   ]
 })
+// 监听语言的变化
+const { currentLocale } = useLocale()
+watch(
+  () => currentLocale.value,
+  () => {
+    rules.value = {
+      user: [
+        { required: true, message: t('login.userError'), trigger: 'blur' }
+      ],
+      password: [
+        {
+          required: true,
+          message: t('login.PWError'),
+          trigger: 'blur'
+        }
+      ]
+    }
+  },
+  { immediate: true }
+)
+
 const isLogin = ref(false)
 
 const login = async (formEl: FormInstance | undefined) => {

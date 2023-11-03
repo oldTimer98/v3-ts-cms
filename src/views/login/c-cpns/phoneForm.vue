@@ -41,18 +41,19 @@
         >{{ $t('login.signIn') }}</el-button
       >
     </el-form-item>
-    <div class="login-reg">
+    <!-- <div class="login-reg">
       {{ $t('login.noAccount') }}
       <router-link to="/user_register">{{
         $t('login.createAccount')
       }}</router-link>
-    </div>
+    </div> -->
   </el-form>
 </template>
 
 <script setup lang="ts">
 import type { FormInstance, FormRules } from 'element-plus'
-
+import { useI18n } from 'vue-i18n'
+import useLocale from '@/hooks/useLocale'
 interface formType {
   phone: number | undefined
   yzm: string
@@ -62,19 +63,27 @@ const form = reactive<formType>({
   yzm: ''
 })
 const loginForm = ref<FormInstance>()
-const rules = reactive<FormRules<formType>>({
-  phone: [
-    { required: true, message: 'Please input Activity name', trigger: 'blur' },
-    { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' }
-  ],
-  yzm: [
-    {
-      required: true,
-      message: 'Please select Activity zone',
-      trigger: 'change'
+const { t } = useI18n()
+let rules = ref<FormRules<formType>>({})
+// 监听语言的变化
+const { currentLocale } = useLocale()
+watch(
+  () => currentLocale.value,
+  () => {
+    rules.value = {
+      phone: [{ required: true, message: t('login.mobileError') }],
+      yzm: [
+        {
+          required: true,
+          message: t('login.smsError'),
+          trigger: 'change'
+        }
+      ]
     }
-  ]
-})
+  },
+  { immediate: true }
+)
+
 const isLogin = ref(false)
 
 const login = async (formEl: FormInstance | undefined) => {
