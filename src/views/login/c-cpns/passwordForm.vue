@@ -81,16 +81,7 @@ const form = reactive<formType>({
 })
 const loginForm = ref<FormInstance>()
 const { t } = useI18n()
-const rules = ref<FormRules<formType>>({
-  user: [{ required: true, message: t('login.userError'), trigger: 'blur' }],
-  password: [
-    {
-      required: true,
-      message: t('login.PWError'),
-      trigger: 'blur'
-    }
-  ]
-})
+const rules = ref<FormRules<formType>>()
 // 监听语言的变化
 const { currentLocale } = useLocale()
 watch(
@@ -108,6 +99,7 @@ watch(
         }
       ]
     }
+    loginForm.value?.resetFields()
   },
   { immediate: true }
 )

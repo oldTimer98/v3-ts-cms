@@ -12,6 +12,7 @@
         v-model="form.phone"
         prefix-icon="el-icon-iphone"
         clearable
+        :maxLength="11"
         :placeholder="$t('login.mobilePlaceholder')"
       >
         <template #prepend>+86</template>
@@ -71,7 +72,10 @@ watch(
   () => currentLocale.value,
   () => {
     rules.value = {
-      phone: [{ required: true, message: t('login.mobileError') }],
+      phone: [
+        { required: true, message: t('login.mobileError') },
+        { pattern: /^1[3456789]\d{9}$/, message: t('root.phoneRule') }
+      ],
       yzm: [
         {
           required: true,
@@ -80,6 +84,7 @@ watch(
         }
       ]
     }
+    loginForm.value?.resetFields()
   },
   { immediate: true }
 )
