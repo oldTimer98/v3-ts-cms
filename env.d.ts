@@ -12,7 +12,7 @@ interface ImportMetaEnv {
   /**
    * API基础路径(反向代理)
    */
-  VITE_APP_BASE_API: string
+  VITE_BASE_URL: string
 }
 interface ImportMeta {
   readonly env: ImportMetaEnv

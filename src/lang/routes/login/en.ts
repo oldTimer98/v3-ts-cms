@@ -1,7 +1,7 @@
 export default {
   // 路由国际化
   login: {
-    timeHomestay: 'Time Homestay',
+    timeHomestay: 'Time Web',
     slogan: 'High performance / delicate / grace',
     describe:
       'Vue3 + element plus based front-end solutions in the background.',

@@ -155,7 +155,7 @@ const WeChatLoginCode = ref('')
 const isWeChatLoginResult = ref(false)
 const wechatLogin = () => {
   showWeChatLogin.value = true
-  WeChatLoginCode.value = 'SCUI-823677237287236-' + new Date().getTime()
+  WeChatLoginCode.value = 'web-823677237287236-' + new Date().getTime()
   isWeChatLoginResult.value = false
   setTimeout(() => {
     isWeChatLoginResult.value = true

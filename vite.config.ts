@@ -8,7 +8,15 @@ const pathSrc = path.resolve(__dirname, 'src')
 // 自动导入插件
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
+import Icons from 'unplugin-icons/vite'
+import IconsResolver from 'unplugin-icons/resolver'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+
+//自动导入组件库样式文件---elementPlus现在是不需要用的
+// import {
+//   createStyleImportPlugin,
+//   ElementPlusResolve
+// } from 'vite-plugin-style-import'
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
   //获取到env，env获取定义变量
@@ -29,10 +37,28 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       Components({
         resolvers: [
           // 自动导入 Element Plus 组件
-          ElementPlusResolver()
+          ElementPlusResolver(),
+          IconsResolver()
         ],
         dts: path.resolve(pathSrc, 'types', 'components.d.ts') // 指定自动导入组件TS类型声明文件路径
+      }),
+      Icons({
+        compiler: 'vue3',
+        autoInstall: true
       })
+      /** 针对ElMessage和ElLoading等组件引入样式 */
+      // createStyleImportPlugin({
+      //   resolves: [ElementPlusResolve()],
+      //   libs: [
+      //     {
+      //       libraryName: 'element-plus',
+      //       esModule: true,
+      //       resolveStyle: (name: string) => {
+      //         return `element-plus/theme-chalk/${name}.css`
+      //       }
+      //     }
+      //   ]
+      // })
     ],
     resolve: {
       alias: {

@@ -112,6 +112,7 @@ const login = async (formEl: FormInstance | undefined) => {
     if (valid) {
       console.log('submit!')
     } else {
+      ElMessage.error('请输入正确的格式后再登录')
       console.log('error submit!', fields)
     }
   })
