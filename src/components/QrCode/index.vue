@@ -16,11 +16,11 @@ const props = defineProps({
   correctLevel: { type: Number, default: 2 }
 })
 
-const qrCode = ref(null)
+const qrCode = ref<HTMLElement>()
 const imgRef = ref()
 const createCode = () => {
   //创建原始二维码DOM
-  return new Promise((resolve) => {
+  return new Promise<void>((resolve) => {
     var element = document.createElement('div')
     new QRcode(element, {
       text: props.text,
@@ -38,16 +38,16 @@ const createCode = () => {
 }
 const drawLogo = () => {
   //绘制LOGO
-  return new Promise((resolve) => {
-    var logo = new Image()
+  return new Promise<void>((resolve) => {
+    const logo = new Image()
     logo.src = props.logo
     const logoPos = (props.size - props.logoSize) / 2
     const rectSize = props.logoSize + props.logoPadding
     const rectPos = (props.size - rectSize) / 2
-    var ctx = qrCode.value.getElementsByTagName('canvas')[0].getContext('2d')
+    const ctx = qrCode.value?.getElementsByTagName('canvas')[0].getContext('2d')
     logo.onload = () => {
-      ctx.fillRect(rectPos, rectPos, rectSize, rectSize)
-      ctx.drawImage(logo, logoPos, logoPos, props.logoSize, props.logoSize)
+      ctx?.fillRect(rectPos, rectPos, rectSize, rectSize)
+      ctx?.drawImage(logo, logoPos, logoPos, props.logoSize, props.logoSize)
       resolve()
     }
   })
@@ -58,7 +58,7 @@ const draw = async () => {
     await drawLogo()
   }
   imgRef.value.src = qrCode.value
-    .getElementsByTagName('canvas')[0]
+    ?.getElementsByTagName('canvas')[0]
     .toDataURL('image/png')
 }
 onMounted(() => {
