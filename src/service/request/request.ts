@@ -1,22 +1,91 @@
-import config, { type configType } from '@/service/request/config'
-import axios, { type AxiosInstance } from 'axios'
+import type { CreateRequestConfig, RequestConfig } from '@/service/request/type'
+import axios from 'axios'
+import type {
+  AxiosInstance,
+  InternalAxiosRequestConfig,
+  AxiosResponse
+} from 'axios'
+/**
+ * 两个难点:
+ *  1.拦截器进行精细控制
+ *    > 全局拦截器
+ *    > 实例拦截器
+ *    > 单次请求拦截器
+ *
+ *  2.响应结果的类型处理(泛型)
+ */
 class YzzRequest {
   instance: AxiosInstance
-  constructor(config: configType) {
-    this.instance = axios.create({
-      baseURL: config.BASE_URL,
-      timeout: config.TIME_OUT
+  constructor(config: CreateRequestConfig) {
+    this.instance = axios.create(config)
+    // 每个instance实例都添加拦截器
+    // 拦截器执行顺序 接口请求 -> 实例请求 -> 全局请求 -> 实例响应 -> 全局响应 -> 接口响应
+    // 请求拦截器
+    this.instance.interceptors.request.use(
+      (config: InternalAxiosRequestConfig) => {
+        // loading/token
+        console.log('触发全局请求拦截器')
+        return config
+      },
+      (err: any) => {
+        return err
+      }
+    )
+    // 响应拦截器
+    this.instance.interceptors.response.use(
+      // 因为我们接口的数据都在res.data下，所以我们直接返回res.data
+      (res: AxiosResponse) => {
+        console.log('触发全局响应拦截器')
+        return res.data
+      },
+      (err: any) => {
+        return err
+      }
+    )
+
+    // 针对特定的hyRequest实例添加拦截器
+    this.instance.interceptors.request.use(
+      config.interceptors?.requestSuccessFn,
+      config.interceptors?.requestFailureFn
+    )
+
+    this.instance.interceptors.response.use(
+      config.interceptors?.responseSuccessFn,
+      config.interceptors?.responseFailureFn
+    )
+  }
+  request<T = any>(config: RequestConfig<T>): Promise<T> {
+    // 单次请求的成功拦截处理
+    if (config.interceptors?.requestSuccessFn) {
+      config = config.interceptors.requestSuccessFn(config as any)
+    }
+    return new Promise<T>((resolve, reject) => {
+      this.instance
+        .request<any, T>(config)
+        .then((res) => {
+          // 单次响应的成功拦截处理
+          if (config.interceptors?.responseSuccessFn) {
+            res = config.interceptors.responseSuccessFn(res)
+          }
+          resolve(res)
+        })
+        .catch((err: any) => {
+          reject(err)
+        })
     })
   }
-  request(config) {
-    return this.instance.request(config)
-  }
-  get(config) {
+  get<T = any>(config: RequestConfig<T>) {
     return this.instance.request({ ...config, method: 'GET' })
   }
-  post(config) {
+  post<T = any>(config: RequestConfig<T>) {
     return this.instance.request({ ...config, method: 'POST' })
+  }
+  delete<T = any>(config: RequestConfig<T>) {
+    return this.request({ ...config, method: 'DELETE' })
+  }
+  patch<T = any>(config: RequestConfig<T>) {
+    return this.request({ ...config, method: 'PATCH' })
   }
 }
 
-export default new YzzRequest(config)
+export default YzzRequest

@@ -7,9 +7,9 @@
     size="large"
     @keyup.enter="login"
   >
-    <el-form-item prop="user">
+    <el-form-item prop="name">
       <el-input
-        v-model="form.user"
+        v-model="form.name"
         prefix-icon="el-icon-user"
         clearable
         :placeholder="$t('login.userPlaceholder')"
@@ -17,7 +17,7 @@
         <template #append>
           <el-select v-model="form.userType" style="width: 130px">
             <el-option :label="$t('login.admin')" value="admin"></el-option>
-            <el-option :label="$t('login.user')" value="user"></el-option>
+            <el-option :label="$t('login.user')" value="name"></el-option>
           </el-select>
         </template>
       </el-input>
@@ -67,16 +67,17 @@
 import type { FormInstance, FormRules } from 'element-plus'
 import { useI18n } from 'vue-i18n'
 import useLocale from '@/hooks/useLocale'
+import { accountLoginRequest } from '@/service/modules/login'
 interface formType {
-  user: string
+  name: string
   userType: string
   password: string
   autoLogin: boolean
 }
 const form = reactive<formType>({
-  user: 'admin',
+  name: 'admin',
   userType: 'admin',
-  password: 'admin',
+  password: '123456',
   autoLogin: false
 })
 const loginForm = ref<FormInstance>()
@@ -88,7 +89,7 @@ watch(
   () => currentLocale.value,
   () => {
     rules.value = {
-      user: [
+      name: [
         { required: true, message: t('login.userError'), trigger: 'blur' }
       ],
       password: [
@@ -108,9 +109,13 @@ const isLogin = ref(false)
 
 const login = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
-  await formEl.validate((valid, fields) => {
+  await formEl.validate(async (valid, fields) => {
     if (valid) {
-      console.log('submit!')
+      const res = await accountLoginRequest({
+        name: form.name,
+        password: form.password
+      })
+      console.log(res)
     } else {
       ElMessage.error('请输入正确的格式后再登录')
       console.log('error submit!', fields)
