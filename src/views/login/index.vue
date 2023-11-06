@@ -117,18 +117,20 @@
   </el-dialog>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" name="login">
 import { useThemeStore } from '@/store/modules/theme'
 import { useAppStore } from '@/store/modules/app'
 import phoneForm from '@/views/login/c-cpns/phoneForm.vue'
 import passwordForm from '@/views/login/c-cpns/passwordForm.vue'
 import useLocale from '@/hooks/useLocale'
+
 // 切换主题
 const themeStore = useThemeStore()
 const appStore = useAppStore()
 const configDark = () => {
   themeStore.theme = themeStore.theme === 'light' ? 'dark' : 'light'
 }
+
 // 切换语言
 const languageList = reactive([
   {

@@ -11,7 +11,7 @@ import Components from 'unplugin-vue-components/vite'
 import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-
+import VueSetupExtend from 'vite-plugin-vue-setup-extend'
 //自动导入组件库样式文件---elementPlus现在是不需要用的
 // import {
 //   createStyleImportPlugin,
@@ -25,6 +25,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
   return {
     plugins: [
       vue(),
+      VueSetupExtend(),
       AutoImport({
         imports: ['vue', 'vue-router'],
         resolvers: [ElementPlusResolver()],

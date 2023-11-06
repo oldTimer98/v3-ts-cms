@@ -1,10 +1,6 @@
 import type { CreateRequestConfig, RequestConfig } from '@/service/request/type'
 import axios from 'axios'
-import type {
-  AxiosInstance,
-  InternalAxiosRequestConfig,
-  AxiosResponse
-} from 'axios'
+import type { AxiosInstance, AxiosResponse } from 'axios'
 /**
  * 两个难点:
  *  1.拦截器进行精细控制
@@ -16,13 +12,14 @@ import type {
  */
 class YzzRequest {
   instance: AxiosInstance
+  loadingInstance: any
   constructor(config: CreateRequestConfig) {
     this.instance = axios.create(config)
     // 每个instance实例都添加拦截器
     // 拦截器执行顺序 接口请求 -> 实例请求 -> 全局请求 -> 实例响应 -> 全局响应 -> 接口响应
     // 请求拦截器
     this.instance.interceptors.request.use(
-      (config: InternalAxiosRequestConfig) => {
+      (config: RequestConfig) => {
         // loading/token
         console.log('触发全局请求拦截器')
         return config
@@ -35,10 +32,19 @@ class YzzRequest {
     this.instance.interceptors.response.use(
       // 因为我们接口的数据都在res.data下，所以我们直接返回res.data
       (res: AxiosResponse) => {
+        if (res.status === 400) {
+          console.log(res)
+        }
         console.log('触发全局响应拦截器')
         return res.data
       },
       (err: any) => {
+        err.response.data &&
+          ElNotification.error({
+            title: '错误',
+            message: err.response.data,
+            showClose: false
+          })
         return err
       }
     )

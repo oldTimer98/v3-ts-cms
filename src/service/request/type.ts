@@ -19,10 +19,13 @@ interface RequestInterceptors<T = AxiosResponse> {
 export interface CreateRequestConfig<T = AxiosResponse>
   extends CreateAxiosDefaults {
   interceptors?: RequestInterceptors<T>
+  isLoading?: boolean
 }
 
-export interface RequestConfig<T = AxiosResponse> extends AxiosRequestConfig {
+export interface RequestConfig<T = AxiosResponse>
+  extends InternalAxiosRequestConfig {
   interceptors?: RequestInterceptors<T>
+  isLoading?: boolean
 }
 // 取消接口参数
 export interface CancelRequestSource {

@@ -67,7 +67,7 @@
 import type { FormInstance, FormRules } from 'element-plus'
 import { useI18n } from 'vue-i18n'
 import useLocale from '@/hooks/useLocale'
-import { accountLoginRequest } from '@/service/modules/login'
+import { useLoginStore } from '@/store/modules/login'
 interface formType {
   name: string
   userType: string
@@ -75,7 +75,7 @@ interface formType {
   autoLogin: boolean
 }
 const form = reactive<formType>({
-  name: 'admin',
+  name: 'coderwhy',
   userType: 'admin',
   password: '123456',
   autoLogin: false
@@ -106,16 +106,13 @@ watch(
 )
 
 const isLogin = ref(false)
-
+// 登录逻辑
+const loginStore = useLoginStore()
 const login = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
   await formEl.validate(async (valid, fields) => {
     if (valid) {
-      const res = await accountLoginRequest({
-        name: form.name,
-        password: form.password
-      })
-      console.log(res)
+      loginStore.loginAction({ name: form.name, password: form.password })
     } else {
       ElMessage.error('请输入正确的格式后再登录')
       console.log('error submit!', fields)
