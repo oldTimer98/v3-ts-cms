@@ -7,7 +7,7 @@ import {
 } from '@/service/modules/login'
 import { localCache } from '@/utils/cache'
 import router from '@/router'
-import { filterAsyncRouter, handleRoute } from '@/utils'
+import { mapMenusToRoutes } from '@/utils'
 
 interface ILoginState {
   token: string
@@ -45,10 +45,27 @@ export const useLoginStore = defineStore('login', {
       localCache.setCache('userMenus', this.userMenus)
 
       // 重要: 动态的添加路由
-      const routes = filterAsyncRouter(this.userMenus)
-      handleRoute(routes)
+      const routes = mapMenusToRoutes(this.userMenus)
+      console.log(routes)
+      routes.forEach((route) => router.addRoute('main', route))
+      // 保存路由消息
       // 5.页面跳转(main页面)
       router.push('/main')
+    },
+    loadLocalCacheAction() {
+      // 1.用户进行刷新默认加载数据
+      const token = localCache.getCache('token')
+      const userInfo = localCache.getCache('userInfo')
+      const userMenus = localCache.getCache('userMenus')
+      if (token && userInfo && userMenus) {
+        this.token = token
+        this.userInfo = userInfo
+        this.userMenus = userMenus
+
+        // 2.动态添加路由
+        const routes = mapMenusToRoutes(userMenus)
+        routes.forEach((route) => router.addRoute('main', route))
+      }
     }
   }
 })

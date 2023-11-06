@@ -1,8 +1,8 @@
 import { localCache } from '@/utils'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
-
-const routes: Readonly<RouteRecordRaw[]> = [
+import { firstMenu } from '@/utils/map-menus'
+export const routes: Readonly<RouteRecordRaw[]> = [
   {
     path: '/',
     redirect: '/main'
@@ -15,25 +15,7 @@ const routes: Readonly<RouteRecordRaw[]> = [
   {
     path: '/main',
     name: 'main',
-    component: () => import('@/views/main/index.vue'),
-    children: [
-      {
-        path: 'analysis',
-        name: 'analysis',
-        children: [
-          {
-            path: 'dashboard',
-            name: 'dashboard',
-            component: () => import('@/views/main/analysis/dashboard/index.vue')
-          },
-          {
-            path: 'overview',
-            name: 'overview',
-            component: () => import('@/views/main/analysis/overview/index.vue')
-          }
-        ]
-      }
-    ]
+    component: () => import('@/views/main/index.vue')
   },
   {
     path: '/:patchMatch(.*)',
@@ -53,13 +35,16 @@ const router = createRouter({
   }
 })
 
-router.beforeEach((to, from) => {
+router.beforeEach((to) => {
+  // 每次刷新需要获取数据
   const token = localCache.getCache('token')
-  if (to.path === '/login' && token) {
-    return from.path
-  }
   if (to.path === '/main' && !token) {
     return '/login'
+  }
+
+  // 如果是进入到main
+  if (to.path === '/main') {
+    return firstMenu?.url
   }
 })
 

@@ -15,6 +15,7 @@ import { useLoginStore } from '@/store/modules/login'
 import { mapPathToBreadcrumbs, type IBreadcrumbs } from '@/utils'
 const route = useRoute()
 const userMenus = useLoginStore().userMenus
+console.log(mapPathToBreadcrumbs(route.path, userMenus))
 const breadcrumbs: Ref<IBreadcrumbs[]> = computed(() => {
   return mapPathToBreadcrumbs(route.path, userMenus)
 })

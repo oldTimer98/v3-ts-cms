@@ -65,11 +65,7 @@ const handleItemClick = (item: any) => {
 const route = useRoute()
 const defaultActive = computed(() => {
   const pathMenu = mapPathToMenu(route.path, userMenus)
-  if (pathMenu?.id) {
-    return pathMenu.id + ''
-  } else {
-    return '1'
-  }
+  return pathMenu.id + ''
 })
 </script>
 
