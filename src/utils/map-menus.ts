@@ -118,3 +118,22 @@ export function mapMenusToRoutes(userMenus: any[]) {
   }
   return routes
 }
+
+// 根据用户的权限列表获取用户的权限
+
+export function mapUserMenuToPermission(userMenus: any[]) {
+  const permission: any[] = []
+  const mapPermission = (menus: any[]) => {
+    for (const item of menus) {
+      if (item.children) {
+        mapPermission(item.children)
+      } else {
+        if (item.permission) {
+          permission.push(item.permission)
+        }
+      }
+    }
+  }
+  mapPermission(userMenus)
+  return permission
+}

@@ -7,7 +7,7 @@ class Cache {
   constructor(type: CacheType) {
     this.storage = type === CacheType.LOCAL ? localStorage : sessionStorage
   }
-  setCache(key: string, value: string) {
+  setCache(key: string, value: any) {
     this.storage.setItem(key, JSON.stringify(value))
   }
   getCache(key: string) {

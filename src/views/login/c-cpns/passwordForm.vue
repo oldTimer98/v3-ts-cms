@@ -64,10 +64,11 @@
 </template>
 
 <script setup lang="ts">
-import type { FormInstance, FormRules } from 'element-plus'
+import type { ElForm, FormInstance, FormRules } from 'element-plus'
 import { useI18n } from 'vue-i18n'
 import useLocale from '@/hooks/useLocale'
 import { useLoginStore } from '@/store/modules/login'
+import { localCache } from '@/utils'
 interface formType {
   name: string
   userType: string
@@ -75,12 +76,12 @@ interface formType {
   autoLogin: boolean
 }
 const form = reactive<formType>({
-  name: 'coderwhy',
-  userType: 'admin',
-  password: '123456',
-  autoLogin: false
+  name: localCache.getCache('name') ?? '',
+  userType: localCache.getCache('userType') ?? '',
+  password: localCache.getCache('password') ?? '',
+  autoLogin: localCache.getCache('isRememberPassword') ?? false
 })
-const loginForm = ref<FormInstance>()
+const loginForm = ref<InstanceType<typeof ElForm>>()
 const { t } = useI18n()
 const rules = ref<FormRules<formType>>()
 // 监听语言的变化
@@ -104,18 +105,42 @@ watch(
   },
   { immediate: true }
 )
-
+// 记住密码的逻辑
+watch(
+  () => form.autoLogin,
+  (newValue: boolean) => {
+    localCache.removeCache('isRememberPassword')
+    localCache.setCache('isRememberPassword', newValue)
+  }
+)
 const isLogin = ref(false)
 // 登录逻辑
 const loginStore = useLoginStore()
 const login = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
-  await formEl.validate(async (valid, fields) => {
+  await formEl.validate(async (valid) => {
     if (valid) {
-      loginStore.loginAction({ name: form.name, password: form.password })
+      loginStore
+        .loginAction({ name: form.name, password: form.password })
+        .then(() => {
+          ElMessage({
+            message: '登录成功',
+            type: 'success'
+          })
+          if (form.autoLogin) {
+            localCache.setCache('name', form.name)
+            localCache.setCache('userType', form.userType)
+            localCache.setCache('password', form.password)
+          } else {
+            localCache.removeCache('name')
+            localCache.removeCache('password')
+          }
+        })
+        .catch(() => {
+          ElMessage.error('账号或者密码不对')
+        })
     } else {
-      ElMessage.error('请输入正确的格式后再登录')
-      console.log('error submit!', fields)
+      ElMessage.error('账号或者密码不对')
     }
   })
 }

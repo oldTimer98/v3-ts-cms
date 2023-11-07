@@ -1,18 +1,13 @@
 import { defineStore } from 'pinia'
-
 export const useMainStore = defineStore('main', {
-  state: () => {
+  state: (): Istate => {
     return {
-      count: 0
+      list: [],
+      totalCount: 0,
+      searchState: -1,
+      pagelist: [],
+      pagetotalCount: 0
     }
   },
-  getters: {
-    finalCount: (state) => state.count * 10
-  },
-  actions: {
-    addCount() {
-      console.log(import.meta.env)
-      this.count += 1
-    }
-  }
+  actions: {}
 })

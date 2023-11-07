@@ -12,14 +12,13 @@ import type { AxiosInstance, AxiosResponse } from 'axios'
  */
 class YzzRequest {
   instance: AxiosInstance
-  loadingInstance: any
   constructor(config: CreateRequestConfig) {
     this.instance = axios.create(config)
     // 每个instance实例都添加拦截器
     // 拦截器执行顺序 接口请求 -> 实例请求 -> 全局请求 -> 实例响应 -> 全局响应 -> 接口响应
     // 请求拦截器
     this.instance.interceptors.request.use(
-      (config: RequestConfig) => {
+      (config) => {
         // loading/token
         console.log('触发全局请求拦截器')
         return config
@@ -31,7 +30,7 @@ class YzzRequest {
     // 响应拦截器
     this.instance.interceptors.response.use(
       // 因为我们接口的数据都在res.data下，所以我们直接返回res.data
-      (res: AxiosResponse) => {
+      (res) => {
         if (res.status === 400) {
           console.log(res)
         }

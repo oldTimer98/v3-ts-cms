@@ -48,7 +48,7 @@ import { localCache } from '@/utils'
 
 const router = useRouter()
 const handleExitClick = () => {
-  localCache.clear()
+  localCache.removeCache('token')
   router.push('/login')
 }
 </script>
