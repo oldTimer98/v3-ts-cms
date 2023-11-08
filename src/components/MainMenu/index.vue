@@ -68,7 +68,7 @@ const defaultActive = computed(() => {
   const pathMenu = mapPathToMenu(route.path, userMenus)
   return pathMenu.id + ''
 })
-npm111
+npm11111
 </script>
 
 <style lang="scss" scoped>
