@@ -68,7 +68,7 @@ const changeCenterDialogVisible = (create: boolean, editList?: any) => {
   centerDialogVisible.value = true
   // 是否新增还是修改
   isCreate.value = create
-  if (isCreate.value == false) {
+  if (isCreate.value === false) {
     const editData: any = {}
     for (const key in formData.value) {
       editData[key] = editList[key]
