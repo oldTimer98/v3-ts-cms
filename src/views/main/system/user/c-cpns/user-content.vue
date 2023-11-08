@@ -7,59 +7,23 @@
     <div class="serarcount">
       <el-table :data="list" border>
         <el-table-column align="center" type="selection" width="50px" />
-        <el-table-column
-          align="center"
-          type="index"
-          label="序号"
-          width="60px"
-        />
-
-        <el-table-column
-          align="center"
-          label="用户名"
-          prop="name"
-          width="150px"
-        />
-        <el-table-column
-          align="center"
-          label="真实姓名"
-          prop="realname"
-          width="150px"
-        />
-        <el-table-column
-          align="center"
-          label="手机号码"
-          prop="cellphone"
-          width="150px"
-        />
-        <el-table-column
-          align="center"
-          label="状态"
-          prop="enable"
-          width="100px"
-        >
+        <el-table-column align="center" type="index" label="序号" width="60px" />
+        <el-table-column align="center" label="用户名" prop="name" width="150px" />
+        <el-table-column align="center" label="真实姓名" prop="realname" width="150px" />
+        <el-table-column align="center" label="手机号码" prop="cellphone" width="150px" />
+        <el-table-column align="center" label="状态" prop="enable" width="100px">
           <template #default="scope">
             <el-tag :type="scope.row.enable ? 'success' : 'danger'" plain>
               {{ scope.row.enable ? '启用' : '禁用' }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column
-          align="center"
-          label="创建时间"
-          prop="createAt"
-          min-width="200px"
-        >
+        <el-table-column align="center" label="创建时间" prop="createAt" min-width="200px">
           <template #default="scope">
             {{ formatUtcString(scope.row.createAt) }}
           </template>
         </el-table-column>
-        <el-table-column
-          align="center"
-          label="更新时间"
-          prop="updateAt"
-          min-width="200px"
-        >
+        <el-table-column align="center" label="更新时间" prop="updateAt" min-width="200px">
           <template #default="scope">
             {{ formatUtcString(scope.row.updateAt) }}
           </template>

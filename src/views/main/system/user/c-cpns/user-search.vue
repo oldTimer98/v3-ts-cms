@@ -5,21 +5,13 @@
       <el-row :gutter="80">
         <el-col :span="8">
           <el-form-item label="ID" prop="id" label-width="68px ">
-            <el-input
-              placeholder="请输入用户ID"
-              v-model="formInfo.id"
-              clearable
-            />
+            <el-input placeholder="请输入用户ID" v-model="formInfo.id" clearable />
           </el-form-item>
         </el-col>
 
         <el-col :span="8">
           <el-form-item label="用户名" prop="name" label-width="68px ">
-            <el-input
-              placeholder="请输入用户名"
-              v-model="formInfo.name"
-              clearable
-            /> </el-form-item
+            <el-input placeholder="请输入用户名" v-model="formInfo.name" clearable /> </el-form-item
         ></el-col>
 
         <el-col :span="8">
@@ -64,17 +56,14 @@
       </el-row>
     </el-form>
     <div class="button">
-      <el-button :icon="RefreshRight" @click="resetClick">重置</el-button>
-      <el-button type="primary" :icon="Search" @click="searchCLick"
-        >搜索</el-button
-      >
+      <el-button icon="i-ep-refresh-right" @click="resetClick">重置</el-button>
+      <el-button type="primary" icon="i-ep-search" @click="searchCLick">搜索</el-button>
     </div>
   </div>
 </template>
 <script setup lang="ts">
 import { useSystemStore } from '@/store/modules/main/system'
 import type { formInfoType } from '@/store/modules/main/system/type'
-import { Search, RefreshRight } from '@element-plus/icons-vue'
 import type { ElForm } from 'element-plus'
 // 定义初始数据
 

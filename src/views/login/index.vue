@@ -8,13 +8,13 @@
           <p>{{ $t('login.describe') }}</p>
           <div>
             <span>
-              <el-icon color="#0099FF" size="40"><ChromeFilled /></el-icon>
+              <el-icon color="#0099FF" size="40"><i-ep-chrome-filled /></el-icon>
             </span>
             <span>
               <el-icon size="20"><Plus /></el-icon>
             </span>
             <span>
-              <el-icon color="#0099FF" size="40"><ElementPlus /></el-icon>
+              <el-icon color="#0099FF" size="40"><i-ep-element-plus /></el-icon>
             </span>
           </div>
         </div>
@@ -27,11 +27,7 @@
             <el-icon v-if="themeStore.theme === 'dark'"><Sunny /></el-icon>
             <el-icon v-else><Moon /></el-icon>
           </el-button>
-          <el-dropdown
-            trigger="click"
-            placement="bottom-end"
-            @command="configLang"
-          >
+          <el-dropdown trigger="click" placement="bottom-end" @command="configLang">
             <el-button circle>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -102,9 +98,7 @@
     <div class="qrCodeLogin">
       <QrCode class="qrCode" :text="WeChatLoginCode" :size="200"></QrCode>
       <p class="msg">
-        {{ $t('login.wechatLoginMsg', 1) }}<br />{{
-          $t('login.wechatLoginMsg', 2)
-        }}
+        {{ $t('login.wechatLoginMsg', 1) }}<br />{{ $t('login.wechatLoginMsg', 2) }}
       </p>
       <div class="qrCodeLogin-result" v-if="isWeChatLoginResult">
         <el-result

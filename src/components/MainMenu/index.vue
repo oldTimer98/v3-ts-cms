@@ -19,16 +19,17 @@
           <el-sub-menu :index="item.id + ''">
             <template #title>
               <!-- 字符串: el-icon-monitor => 组件 component动态组件 -->
+              <!-- 这里有好几种方法 -->
               <el-icon>
-                <component :is="item.icon.split('-icon-')[1]"></component>
+                <Icon :icon="`ep:${item.icon.split('-icon-')[1]}`" />
               </el-icon>
+              <!-- <el-icon>
+                <component :is="item.icon.split('-icon-')[1]"></component>
+              </el-icon> -->
               <span>{{ item.name }}</span>
             </template>
             <template v-for="subitem in item.children" :key="subitem.id">
-              <el-menu-item
-                :index="subitem.id + ''"
-                @click="handleItemClick(subitem)"
-              >
+              <el-menu-item :index="subitem.id + ''" @click="handleItemClick(subitem)">
                 {{ subitem.name }}
               </el-menu-item>
             </template>
@@ -42,7 +43,7 @@
 <script setup lang="ts">
 import { useLoginStore } from '@/store/modules/login'
 import { mapPathToMenu } from '@/utils'
-
+import { Icon } from '@iconify/vue'
 defineProps({
   isFold: {
     type: Boolean,
