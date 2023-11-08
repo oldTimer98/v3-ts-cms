@@ -14,6 +14,7 @@
         background-color="#001529"
         :collapse-transition="false"
         popper-effect="dark"
+        :unique-opened="true"
       >
         <template v-for="item in userMenus" :key="item.id">
           <el-sub-menu :index="item.id + ''">
