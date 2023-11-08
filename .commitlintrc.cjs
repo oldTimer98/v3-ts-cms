@@ -10,7 +10,7 @@
 // 'build',    //编译相关的修改，例如发布版本、对项目构建或者依赖的改动
 module.exports = {
   extends: ['@commitlint/config-conventional'],
-  // extends: ['git-commit-emoji', 'cz'],
+  // extends: ['cz', 'git-commit-emoji'],
   // 校验规则
   rules: {
     'type-enum': [
