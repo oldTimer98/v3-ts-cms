@@ -69,3 +69,8 @@ watch(
   }
 )
 </script>
+<style lang="scss" scoped>
+.qrCode {
+  margin: 0 auto;
+}
+</style>

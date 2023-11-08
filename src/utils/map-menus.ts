@@ -110,7 +110,9 @@ export function mapMenusToRoutes(userMenus: any[]) {
         routes.push(route)
       }
       // 记录第一个被匹配到的菜单
-      if (!firstMenu && route) firstMenu = submenu
+      if (!firstMenu && route) {
+        firstMenu = submenu
+      }
     }
   }
   return routes

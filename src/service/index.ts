@@ -13,25 +13,25 @@ const Request = new YzzRequest({
         config.headers.Authorization = 'Bearer ' + token
       }
       showLoading()
-      console.log('触发单个请求拦截器', config)
+      console.log('触发单个请求拦截器')
       return config
     },
     responseSuccessFn: (res) => {
       setTimeout(() => {
         hideLoading()
-      }, 200)
+      }, 500)
       return res
     },
     responseFailureFn(err) {
       setTimeout(() => {
         hideLoading()
-      }, 200)
+      }, 500)
       return err
     },
     requestFailureFn(err) {
       setTimeout(() => {
         hideLoading()
-      }, 200)
+      }, 500)
       return err
     }
   }

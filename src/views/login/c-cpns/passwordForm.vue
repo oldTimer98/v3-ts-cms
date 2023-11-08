@@ -98,19 +98,13 @@ watch(
   },
   { immediate: true }
 )
-// 记住密码的逻辑
-watch(
-  () => form.autoLogin,
-  (newValue: boolean) => {
-    localCache.removeCache('isRememberPassword')
-    localCache.setCache('isRememberPassword', newValue)
-  }
-)
 const isLogin = ref(false)
 // 登录逻辑
 const loginStore = useLoginStore()
 const login = async (formEl: FormInstance | undefined) => {
-  if (!formEl) return
+  if (!formEl) {
+    return
+  }
   await formEl.validate(async (valid) => {
     if (valid) {
       loginStore
@@ -124,9 +118,11 @@ const login = async (formEl: FormInstance | undefined) => {
             localCache.setCache('name', form.name)
             localCache.setCache('userType', form.userType)
             localCache.setCache('password', form.password)
+            localCache.setCache('isRememberPassword', true)
           } else {
             localCache.removeCache('name')
             localCache.removeCache('password')
+            localCache.removeCache('isRememberPassword')
           }
         })
         .catch(() => {
