@@ -54,7 +54,6 @@
     "shallowReactive": true,
     "shallowReadonly": true,
     "shallowRef": true,
-    "storeToRefs": true,
     "toRaw": true,
     "toRef": true,
     "toRefs": true,
@@ -71,6 +70,7 @@
     "watch": true,
     "watchEffect": true,
     "watchPostEffect": true,
-    "watchSyncEffect": true
+    "watchSyncEffect": true,
+    "storeToRefs": true
   }
 }

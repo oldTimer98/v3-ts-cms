@@ -2,9 +2,9 @@
 
 ### 父组件获取子组件的数据
 
-在子组件中定义一个函数通过defineExpose进行暴露父组件通过ref获取到子组件的实例来调用函数传递数据
+在子组件中定义一个函数通过 defineExpose 进行暴露父组件通过 ref 获取到子组件的实例来调用函数传递数据
 
-关键在于在ts中父组件对于子组件的ref的类型如何确定我们可以使用(<InstanceType<typeof UserLogin>>)
+关键在于在 ts 中父组件对于子组件的 ref 的类型如何确定我们可以使用(<InstanceType<typeof UserLogin>>)
 
 对齐进行类型推导即可
 
@@ -29,11 +29,11 @@ function changeLocateStore(newValue: boolean) {
 
 不知道为啥能监听到数据却改变不了数据暂时没找到原因
 
-于是我在更新以后直接清除该数据字段 让他是undefined 反正他能获取到false
+于是我在更新以后直接清除该数据字段 让他是 undefined 反正他能获取到 false
 
 ### 登录的逻辑
 
-发送一个post请求携带json格式的数据 内容为name和password 让服务器进行验证 验证成功以后返回一个token 把token保存到本地 这样下次就不用在登录了 注意在发送请求后直接给我添加跳转逻辑不用担心 我们有路由守卫看着呢
+发送一个 post 请求携带 json 格式的数据 内容为 name 和 password 让服务器进行验证 验证成功以后返回一个 token 把 token 保存到本地 这样下次就不用在登录了 注意在发送请求后直接给我添加跳转逻辑不用担心 我们有路由守卫看着呢
 
 ```js
 export function accountLogin(account: IAccount) {
@@ -56,13 +56,13 @@ router.beforeEach((to) => {
 })
 ```
 
-只要你是去main中的 且获取的token存在 就给我跳转 否则就回去重新登录
+只要你是去 main 中的 且获取的 token 存在 就给我跳转 否则就回去重新登录
 
 ### 巧用拦截器
 
-根据id获取用户信息 和根据用户信息中的角色id获取用户的角色 我们在发请求的时候都需要携带指定用户的token
+根据 id 获取用户信息 和根据用户信息中的角色 id 获取用户的角色 我们在发请求的时候都需要携带指定用户的 token
 
-我们建议你在响应成功的回调拦截器中添加token 这样很方便
+我们建议你在响应成功的回调拦截器中添加 token 这样很方便
 
 ```js
 const wfrequest = new HYRequest({
@@ -84,19 +84,19 @@ const wfrequest = new HYRequest({
 export default wfrequest
 ```
 
-### 小buG
+### 小 buG
 
-从服务器拿到用户menu的列表---根据每个用户的角色不同展示不同的列表
+从服务器拿到用户 menu 的列表---根据每个用户的角色不同展示不同的列表
 
-我们不能单纯的放到store中因为页面一旦刷新我们的store就没了所以我们需要进行本地存储
+我们不能单纯的放到 store 中因为页面一旦刷新我们的 store 就没了所以我们需要进行本地存储
 
 注意本地存储
 
-我在本地存储的时候没有.data 在存储到store中的时候.data了所以导致了两种数据格式不一样
+我在本地存储的时候没有.data 在存储到 store 中的时候.data 了所以导致了两种数据格式不一样
 
-当页面刷新后我的store会获取到本地存储的数据进行保存 由于没有.data 所以我需要在展示的时候进行.data
+当页面刷新后我的 store 会获取到本地存储的数据进行保存 由于没有.data 所以我需要在展示的时候进行.data
 
-但是我的第一次渲染是有.data所以两种数据格式不一样
+但是我的第一次渲染是有.data 所以两种数据格式不一样
 
 妈的细心吧
 
@@ -111,13 +111,13 @@ localCache.setCache('userinfo', userinfo)
 
 ```
 
-### 使用服务器返回的数据渲染menu之后我们的icon成了一个问题
+### 使用服务器返回的数据渲染 menu 之后我们的 icon 成了一个问题
 
-如何动态获取服务器返回的icon来渲染icon图标
+如何动态获取服务器返回的 icon 来渲染 icon 图标
 
 观察服务器返回的数据发现里面都有一个`icon:"el-icon-monitor"`
 
-我们可以使用动态组件动态渲染标签名来实现动态渲染icon
+我们可以使用动态组件动态渲染标签名来实现动态渲染 icon
 
 ```js
 <el-icon>
@@ -126,7 +126,7 @@ localCache.setCache('userinfo', userinfo)
 </el-icon>
 ```
 
-### css去除滚动条逻辑--less语法
+### css 去除滚动条逻辑--less 语法
 
 ```less
 overflow-x: hidden;
@@ -139,17 +139,17 @@ transition: width 0.3s ease;
 }
 ```
 
-### cssDeep选中元素
+### cssDeep 选中元素
 
-现在页面中有一个根元素类名叫app
+现在页面中有一个根元素类名叫 app
 
-在app中有一个tste组件 该组件的根元素是div div的类名叫 wrapper
+在 app 中有一个 tste 组件 该组件的根元素是 div div 的类名叫 wrapper
 
-我们在app的style标签中选中 wrapper是可以选中的 但是如果我们要去选中wrapper中的子元素就选不中了
+我们在 app 的 style 标签中选中 wrapper 是可以选中的 但是如果我们要去选中 wrapper 中的子元素就选不中了
 
-如果你在app的style中去给wrapper中的子元素设置样式你需要使用:deep(.inner){ xxxx}
+如果你在 app 的 style 中去给 wrapper 中的子元素设置样式你需要使用:deep(.inner){ xxxx}
 
-当然你也可以在wrapper的style中去选中该元素
+当然你也可以在 wrapper 的 style 中去选中该元素
 
 ```CSS
 // 为什么是global 而不是deep因为他是渲染在全局组件当中
@@ -180,15 +180,15 @@ const roles:{
 }
 ```
 
-弊端:每增加一个角色都要添加一个key和value
+弊端:每增加一个角色都要添加一个 key 和 value
 
 前端添加:如果已经发布了前端就不好加(必须要重新发布代码)
 
-后端添加:这里的枚举类型 让后端给我们返回 json 根据这个json来动态添加到roles 同时后端必须要组织好json给我们前端返回
+后端添加:这里的枚举类型 让后端给我们返回 json 根据这个 json 来动态添加到 roles 同时后端必须要组织好 json 给我们前端返回
 
 方案二:基于菜单的动态路由管理:joy:
 
-我们在请求数据的时候我们曾经请求过一个menus 该menus是根据不同的用户角色来生成的不同的菜单
+我们在请求数据的时候我们曾经请求过一个 menus 该 menus 是根据不同的用户角色来生成的不同的菜单
 
 这洽洽符合我们的要求 我们只需要把这些菜单给动态映射出来刚好就是我们的路由了
 
@@ -196,17 +196,17 @@ const roles:{
 
 对于动态路由的文件架构思想以及自动化生成文件结构
 
-对于路由 最好是view中的页面与router中的页面成一一对应关系
+对于路由 最好是 view 中的页面与 router 中的页面成一一对应关系
 
-这里我们使用coderwhy的自动生成文件夹结构
+这里我们使用 coderwhy 的自动生成文件夹结构
 
 第一步安装 npm install coderwhy -g
 
-理一下思路我们的view和router是一一对应的我们使用该工具只需要在main页面中生成view他就会自动在router文件夹下生成 对应的路由文件 比如生成以下结构
+理一下思路我们的 view 和 router 是一一对应的我们使用该工具只需要在 main 页面中生成 view 他就会自动在 router 文件夹下生成 对应的路由文件 比如生成以下结构
 
 coderwhy add3page_setup list -d src/views/main/story/list
 
-main下的文件内容
+main 下的文件内容
 
 ```js
 <template>
@@ -224,7 +224,7 @@ main下的文件内容
 
 ```
 
-router下的文件内容
+router 下的文件内容
 
 ```js
 const list = () => import('@/views/main/story/list/list.vue')
@@ -236,66 +236,63 @@ export default {
 }
 ```
 
-可以看到我们的router下的文件中会自动给我们引入了main下的页面
+可以看到我们的 router 下的文件中会自动给我们引入了 main 下的页面
 
-且生成了path 这个path刚好是我们的路由
+且生成了 path 这个 path 刚好是我们的路由
 
 #### 第二步
 
 我们想要实现动态路由就需要在用户登录的一瞬间拿到该用户所有的权限 根据他的权限去动态添加路由
 
-前面我们已经通过token拿到了用户的menus列表在menus中有许多的路由 这些路由刚好是该用户应该拥有的
+前面我们已经通过 token 拿到了用户的 menus 列表在 menus 中有许多的路由 这些路由刚好是该用户应该拥有的
 
 我们需要取出来
 
-##### 2.1获取所有的路由我们通过自动化生成了所有的页面我们需要全部拿到放到数组中
+##### 2.1 获取所有的路由我们通过自动化生成了所有的页面我们需要全部拿到放到数组中
 
-这里我们使用vite中的 import.meta.glob
+这里我们使用 vite 中的 import.meta.glob
 
 定义路径模式之后，可以调用 `import.meta.glob` 方法来导入匹配到的模块。该方法返回一个对象，其中每个键都是匹配到的模块路径，每个值都是一个异步加载函数，用于动态导入对应的模块。
 
 ```js
 // 动态添加路由
-      // 我们已经生成页面中所有的文件结构和路由结构，接下来我们需要拿到所有的路由从router下的文件中拿
-      // 匹配某个文件夹及其子文件夹下的所有 .vue 文件：./path/**/*.vue
+// 我们已经生成页面中所有的文件结构和路由结构，接下来我们需要拿到所有的路由从router下的文件中拿
+// 匹配某个文件夹及其子文件夹下的所有 .vue 文件：./path/**/*.vue
 
-      // 第一步定义一个用于保存所有路由的数组
-      const localRouters: RouteRecordRaw[] = []
-      const files: Record<string, any> = import.meta.glob(
-        '../../../router/main/**/*.ts',
-        {
-          /*
+// 第一步定义一个用于保存所有路由的数组
+const localRouters: RouteRecordRaw[] = []
+const files: Record<string, any> = import.meta.glob('../../../router/main/**/*.ts', {
+  /*
        在某些情况下，可能需要在应用加载时就预先加载所有匹配到的模块，以便加快应用的启动速度。为了实现这个目的，可以在路径模式后面加上 {eager: true}，来表示对所有匹配到的模块进行“急切导入（eager import）”。
         */
-          eager: true
-        }
-      )
-      // 第二步把main页面中的所有路由添加到localRouters中进行存储
-      for (const key in files) {
-        const module = files[key]
-        // 把该路由对象放到数组中
-        localRouters.push(module.default)
-        // 现在在localRouters数组中存储了main页面中的所有路由
-      }
-      //第三步根据usermenus去匹配需要的路由进行添加到路由中
-      for (const menu of menuRes) {
-        // 拿到他的全部路由
-        for (const submenu of menu.children) {
-          const route = localRouters.find((item) => item.path === submenu.url)
-          if (route) router.addRoute('main', route)
-        }
-      }
+  eager: true
+})
+// 第二步把main页面中的所有路由添加到localRouters中进行存储
+for (const key in files) {
+  const module = files[key]
+  // 把该路由对象放到数组中
+  localRouters.push(module.default)
+  // 现在在localRouters数组中存储了main页面中的所有路由
+}
+//第三步根据usermenus去匹配需要的路由进行添加到路由中
+for (const menu of menuRes) {
+  // 拿到他的全部路由
+  for (const submenu of menu.children) {
+    const route = localRouters.find((item) => item.path === submenu.url)
+    if (route) router.addRoute('main', route)
+  }
+}
 ```
 
-### 修复bug
+### 修复 bug
 
 当用户从登录页面进入以后是可以匹配路由的
 
-当用户在main页面 中刷新一下以后就不行了 我们需要对齐进行修复一下
+当用户在 main 页面 中刷新一下以后就不行了 我们需要对齐进行修复一下
 
-在vue中只要你进行刷新就会进行使用pinia 我们刚好可以在main中搞一下
+在 vue 中只要你进行刷新就会进行使用 pinia 我们刚好可以在 main 中搞一下
 
-解决方案我们在loginStore中的action中在定义一个函数用于重新加载routers去重新匹配路由
+解决方案我们在 loginStore 中的 action 中在定义一个函数用于重新加载 routers 去重新匹配路由
 
 ```js
  // 只要用户给我刷新我就给他重新加载一下所有的路由
@@ -307,13 +304,13 @@ export default {
     }
 ```
 
-在main中的使用pinia之后在使用router之前我们进行调用该函数进行调用重新匹配路由
+在 main 中的使用 pinia 之后在使用 router 之前我们进行调用该函数进行调用重新匹配路由
 
 因为我们需要先进行用户权限的路由匹配和添加之后在使用路由所以我们最好在使用路由之前进行调用该函数
 
 ### 项目细节
 
-建议在用户登录成功以后把main页面跳转到用户menus中的第一个url
+建议在用户登录成功以后把 main 页面跳转到用户 menus 中的第一个 url
 
 ```js
 if (fristRouterUrl === null && route) {
@@ -323,7 +320,7 @@ if (fristRouterUrl === null && route) {
 
 直接把这个东西暴露出去再次在路由守卫中拦截一下就行
 
-### 根据url去匹配menu的位置
+### 根据 url 去匹配 menu 的位置
 
 ```js
 export function mapPathtoUsermenus(path: any, usermenu: any) {
@@ -337,21 +334,21 @@ export function mapPathtoUsermenus(path: any, usermenu: any) {
 }
 ```
 
-只需要匹配到usermenu中的位置即可拿到我们需要的id
+只需要匹配到 usermenu 中的位置即可拿到我们需要的 id
 
 ### 今天需要对面包屑进行封装
 
 面包屑需求:
 
-第一个菜单显示当前路由的父路由name
+第一个菜单显示当前路由的父路由 name
 
 后面的菜单以此类推,要求点击第一个面包屑跳转到当前的路由组中的第一个路由(由于我们没有对父路由进行匹配页面)
 
-我们需要封装一些redirect去跳转路由
+我们需要封装一些 redirect 去跳转路由
 
-在编写完主要逻辑之后，需要注意 在页面调用该函数的时候他不是响应式的数据所以在用户点击其他的menu的时候不能直接响应改变页面
+在编写完主要逻辑之后，需要注意 在页面调用该函数的时候他不是响应式的数据所以在用户点击其他的 menu 的时候不能直接响应改变页面
 
-我们需要使用vue中的computed进行数据监听
+我们需要使用 vue 中的 computed 进行数据监听
 
 主要的逻辑
 
@@ -381,9 +378,9 @@ const Breadcrumb = computed(() => {
 
 第一:所有你匹配到的路由不能直接返回要存数组，因为后期要遍历该数据
 
-第二:在使用computed进行监听的时候是监听该函数不是监听其他数据 函数的改变主要是参数的变化
+第二:在使用 computed 进行监听的时候是监听该函数不是监听其他数据 函数的改变主要是参数的变化
 
-route.path就是变量所以在每次发生改变后都要获取当前路由而不是你直接获取传递过来是在调用函数时获取该数据
+route.path 就是变量所以在每次发生改变后都要获取当前路由而不是你直接获取传递过来是在调用函数时获取该数据
 
 ### 点击不同页码展示不同的数据
 
@@ -400,9 +397,9 @@ function fetchUserlistData() {
 }
 ```
 
-pageSize的初始值为10
+pageSize 的初始值为 10
 
-currentPage初始值为1
+currentPage 初始值为 1
 
 这两个值是绑定的当我们需要切换页码和一页的数量就会改变这两值
 
@@ -412,25 +409,25 @@ currentPage初始值为1
 
 第一次请求 --pageSize=10 currentPage=1
 
-也就是第一次请求为请求数据量10条 请求偏移量为0 一共拿10条数据
+也就是第一次请求为请求数据量 10 条 请求偏移量为 0 一共拿 10 条数据
 
-当我们点击下一页的时候size为10--- currentPage为2 offset也就是偏移10条数据请求10条数据也就是后面的数据
+当我们点击下一页的时候 size 为 10--- currentPage 为 2 offset 也就是偏移 10 条数据请求 10 条数据也就是后面的数据
 
-当我们点击一页展示多少数据的时候就是 改变size 当size为20时候 offset还是10 但是请求数据量变大了也就是一次请求20条数据 展示20条数据
+当我们点击一页展示多少数据的时候就是 改变 size 当 size 为 20 时候 offset 还是 10 但是请求数据量变大了也就是一次请求 20 条数据 展示 20 条数据
 
 ### 对于请求的管理
 
-由于我们的角色列表和部门列表在其他的页面中很有可能也会被用到所以这里我们把这两个请求单独封装到service中的system中的main中进行单独的请求同时store中也是创建一个单独的文件单独的保存数据
+由于我们的角色列表和部门列表在其他的页面中很有可能也会被用到所以这里我们把这两个请求单独封装到 service 中的 system 中的 main 中进行单独的请求同时 store 中也是创建一个单独的文件单独的保存数据
 
 这两个数据的请求位置最好在登录成功之后就去拿到数据提前做好准备
 
-### 修改用户的info的逻辑BUg
+### 修改用户的 info 的逻辑 BUg
 
 今天在修改用户信息的时候出现了问题
 
 简单复盘一下
 
-修改用户信息需要发送网络请求 根据用户的id和携带的fromdata去修改数据
+修改用户信息需要发送网络请求 根据用户的 id 和携带的 fromdata 去修改数据
 
 当我们点击编辑按钮的时候通过作用域插槽获取到点击的用户的数据
 
@@ -445,7 +442,7 @@ function EditUserData(EditData: any) {
 把拿到的点击的数据派发出去
 ```
 
-在user页面中监听EditUser的点击并且获取数据
+在 user 页面中监听 EditUser 的点击并且获取数据
 
 ```ts
 // 当用户点击编辑的逻辑
@@ -455,7 +452,7 @@ function handlEditUserData(EditData: any) {
 }
 ```
 
-dialog页面
+dialog 页面
 
 ```js
 function changecenterDialogVisible(iscreate: boolean, EditData?: any) {
@@ -481,16 +478,16 @@ function changecenterDialogVisible(iscreate: boolean, EditData?: any) {
 
 我们在这里对数据进行展示方便用户进行动态改变
 
-但是我们需要注意的时候我们修改的用户的信息的id是在EditData中的id所以我们需要把它保存一下
+但是我们需要注意的时候我们修改的用户的信息的 id 是在 EditData 中的 id 所以我们需要把它保存一下
 
 ```js
 // 创建一个用于保存修改信息的对象
 const changeuseroinfoData = ref()
 ```
 
-在发请求的时候第一个参数的id是从EditData中的id拿到的也就是从changeuseroinfoData.value.id 我
+在发请求的时候第一个参数的 id 是从 EditData 中的 id 拿到的也就是从 changeuseroinfoData.value.id 我
 
-他妈直接来个formData.roleId老是修改不成功 妈的原来如此
+他妈直接来个 formData.roleId 老是修改不成功 妈的原来如此
 
 ## 上难度
 
@@ -539,7 +536,7 @@ export function editpagelist(pagename: string, id: any, editindo: any) {
 
 在页面中就是改改标题换一下网络请求就行
 
-### vue3+ts中的props定义方式
+### vue3+ts 中的 props 定义方式
 
 ```ts
 //第一步定一个类型
@@ -565,7 +562,7 @@ const props = defineProps<IProps>()
 
 ### 高度定制化:warning:
 
-我们在表格中展示数据的时候不一定总是展示一个文本有可能展示的img或者其他东西所以我们在配置文件中把type命名为type: 'custom',表示对于这条数据我们需要自定义展示
+我们在表格中展示数据的时候不一定总是展示一个文本有可能展示的 img 或者其他东西所以我们在配置文件中把 type 命名为 type: 'custom',表示对于这条数据我们需要自定义展示
 
 ```json
 {
@@ -584,7 +581,7 @@ const props = defineProps<IProps>()
     }
 ```
 
-那么在组件中我们用一个判断只要type等于 'custom'我们就根据配置文件中的slotName留一个具名插槽
+那么在组件中我们用一个判断只要 type 等于 'custom'我们就根据配置文件中的 slotName 留一个具名插槽
 
 ```vue
   <template v-else-if="item.type == 'custom'">
@@ -679,31 +676,31 @@ const formInfo = reactive(inittialForm)
 
 ### 细节三
 
-在做菜单管理界面的中间部分的时候发现我们需要展示子菜单子菜单需要有一个tree类型列表
+在做菜单管理界面的中间部分的时候发现我们需要展示子菜单子菜单需要有一个 tree 类型列表
 
 如果你想做这种效果不可缺少的属性是`row-key="id"	`
 
-需要展示的数据一般是在chliden中我们需要写上这个属性
+需要展示的数据一般是在 chliden 中我们需要写上这个属性
 
 ```elixir
 :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
 ```
 
-children表示你的数据源在哪里 比如在list中就改成list
+children 表示你的数据源在哪里 比如在 list 中就改成 list
 
-hasChildren是否有children列表 这些如果默认不添加都是默认添加上的
+hasChildren 是否有 children 列表 这些如果默认不添加都是默认添加上的
 
-在定义数据的时候如果确定这个数据的需要有children展示的就不要写type='normal'了因为他会覆盖element样式建议不要乱添加type 换个字段名去判断
+在定义数据的时候如果确定这个数据的需要有 children 展示的就不要写 type='normal'了因为他会覆盖 element 样式建议不要乱添加 type 换个字段名去判断
 
 ### 创建角色时候的细节
 
-当用户为创建的角色选择用户权限的时候我们传递的一串id过去
+当用户为创建的角色选择用户权限的时候我们传递的一串 id 过去
 
 编辑角色的细节
 
 当用户点击编辑用户的时候我们需要对数据进行回显 该角色有哪些权限就展示哪些权限
 
-我们需要定义一个函数用来获取数据中的所有id--一级就不要了因为他一旦设置上了就是全选了自己测试一下
+我们需要定义一个函数用来获取数据中的所有 id--一级就不要了因为他一旦设置上了就是全选了自己测试一下
 
 ```ts
 // 获取id的逻辑
@@ -725,7 +722,7 @@ function mapmenulisttoIds(menuList: any[]) {
 }
 ```
 
-设置的话我们必须在nexttick中设置
+设置的话我们必须在 nexttick 中设置
 
 ```vue
 nextTick(() => { treeRef?.value?.setCheckedKeys(res) })
@@ -735,7 +732,7 @@ nextTick(() => { treeRef?.value?.setCheckedKeys(res) })
 
 nextTick--->当你在 Vue 中更改响应式状态时，最终的 DOM 更新并不是同步生效的，而是由 Vue 将它们缓存在一个队列中，直到下一个“tick”才一起执行。这样是为了确保每个组件无论发生多少状态改变，都仅执行一次更新。
 
-所以我们这设置选中后他是不会立即更新的 所以你暂时拿不到 所以我们需要在下一次dom更新完成之后拿到所有的数据
+所以我们这设置选中后他是不会立即更新的 所以你暂时拿不到 所以我们需要在下一次 dom 更新完成之后拿到所有的数据
 
 原因因为我们在点击编辑按钮以后第一个操作是弹出编辑框 编辑框的展示或者不展示是由一个响应式对象决定的
 
@@ -743,31 +740,31 @@ nextTick--->当你在 Vue 中更改响应式状态时，最终的 DOM 更新并�
 
 nextTick 的回调是宏任务还是微任务呢?
 
-在v2中发生了很多次变化
+在 v2 中发生了很多次变化
 
-在v3中他是一个微任务!
+在 v3 中他是一个微任务!
 
-他的原理是 把你给nextTick的函数全部加到更新队列的promise.then中
+他的原理是 把你给 nextTick 的函数全部加到更新队列的 promise.then 中
 
-then是一个微任务 只要promise中的代码执行完毕就会执行then中的代码
+then 是一个微任务 只要 promise 中的代码执行完毕就会执行 then 中的代码
 
-vue把所有的更新都放到一个promise中更新函数放到这个promise中的then中
+vue 把所有的更新都放到一个 promise 中更新函数放到这个 promise 中的 then 中
 
 ### 按钮的权限控制
 
 根据不同的用户的权限来展示按钮
 
-比如wangfeng有系统管理中的用户管理权限 他有编辑用户权限但是没有删除的权限 他也没有新建用户的权限那么这个时候我们就不给他展示该按钮
+比如 wangfeng 有系统管理中的用户管理权限 他有编辑用户权限但是没有删除的权限 他也没有新建用户的权限那么这个时候我们就不给他展示该按钮
 
 功能实现的原理:ok_hand:
 
-对于该功能我们在前期登录用户的时候会请求一个数据该数据是表示该用户的路由权限就是根据这个数据去动态渲染我们的路由 动态添加路由的数据(usermenu)在这个数据中的第三级中会有一个permission 就是表示该用户是否拥有该二级权限中的某一个权限
+对于该功能我们在前期登录用户的时候会请求一个数据该数据是表示该用户的路由权限就是根据这个数据去动态渲染我们的路由 动态添加路由的数据(usermenu)在这个数据中的第三级中会有一个 permission 就是表示该用户是否拥有该二级权限中的某一个权限
 
 ### 新技术
 
 `store.$onAction()`
 
-该函数用于监听我们的store中的某个action的执行 当我们在执行某个action的时候我们可以对其进行一系列的操作
+该函数用于监听我们的 store 中的某个 action 的执行 当我们在执行某个 action 的时候我们可以对其进行一系列的操作
 
 ```js
 // 监听函数的执行在修改完数据以后我们把页码设置为1因为他会自动跳转到第一页
@@ -784,18 +781,18 @@ store.$onAction(({ name, after }) => {
 })
 ```
 
-### 对于Echarts的封装
+### 对于 Echarts 的封装
 
-Echarts主要是依靠与opstion的配置项 所以基本的大小或者初始化数据的逻辑都是一样的 这样吧所有的初始化都写到base中 不同的表格都是基于 base的封装 只需要传递进去一个opstion就行
+Echarts 主要是依靠与 opstion 的配置项 所以基本的大小或者初始化数据的逻辑都是一样的 这样吧所有的初始化都写到 base 中 不同的表格都是基于 base 的封装 只需要传递进去一个 opstion 就行
 
-### 关于computed的使用细节
+### 关于 computed 的使用细节
 
-复盘我在服务器拿到一堆数据 我需要对齐进行格式化但是有要要求他在改变的时候我能第一时间获取到最新的值，我们需要使用computed进行监听 我需要把数据解构成两个数组 进行返回 我在computed的上面使用let声明了两个数组 在computed内部进行对齐进行push 但是发现始终没有值
+复盘我在服务器拿到一堆数据 我需要对齐进行格式化但是有要要求他在改变的时候我能第一时间获取到最新的值，我们需要使用 computed 进行监听 我需要把数据解构成两个数组 进行返回 我在 computed 的上面使用 let 声明了两个数组 在 computed 内部进行对齐进行 push 但是发现始终没有值
 
 ```js
-错误示例---无法获取数据
-  let Xdata: string[] = []
-  let Ydata: number[] = []
+错误示例-- - 无法获取数据
+let Xdata: string[] = []
+let Ydata: number[] = []
 const roseData = computed(() => {
   saleData.value.map((item: any) => {
     Xdata.push(item.name)

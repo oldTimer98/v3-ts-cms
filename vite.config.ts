@@ -3,7 +3,6 @@ import { fileURLToPath, URL } from 'node:url'
 import path from 'path'
 import { defineConfig } from 'vite'
 const pathSrc = path.resolve(__dirname, 'src')
-
 // 自动导入插件
 //自动导入组件库样式文件---elementPlus现在是不需要用的
 // import {
@@ -19,6 +18,7 @@ import IconsResolver from 'unplugin-icons/resolver'
 import Icons from 'unplugin-icons/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
+import eslint from 'vite-plugin-eslint'
 import VueSetupExtend from 'vite-plugin-vue-setup-extend'
 import { presetIcons } from 'unocss'
 
@@ -100,7 +100,8 @@ export default defineConfig({
           }
         }
       ]
-    })
+    }),
+    eslint()
   ],
   resolve: {
     alias: {

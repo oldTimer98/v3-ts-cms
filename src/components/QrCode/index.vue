@@ -21,7 +21,7 @@ const imgRef = ref()
 const createCode = () => {
   //创建原始二维码DOM
   return new Promise<void>((resolve) => {
-    var element = document.createElement('div')
+    let element = document.createElement('div')
     new QRcode(element, {
       text: props.text,
       width: props.size,

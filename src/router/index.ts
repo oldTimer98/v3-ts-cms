@@ -27,6 +27,7 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes,
   scrollBehavior(to, from, savedPosition) {
+    console.log(to, from, savedPosition)
     return {
       el: '#app',
       top: 0,

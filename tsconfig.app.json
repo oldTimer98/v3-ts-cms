@@ -6,7 +6,9 @@
     "src/**/*.vue",
     "src/**/*.ts",
     "src/types/auto-imports.d.ts",
-    "src/types/components.d.ts"
+    "src/types/components.d.ts",
+    ".eslintrc.cjs",
+    "vite.config.ts"
   ],
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
