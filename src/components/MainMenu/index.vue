@@ -41,9 +41,9 @@
 </template>
 
 <script setup lang="ts">
+import { Icon } from '@iconify/vue'
 import { useLoginStore } from '@/store/modules/login'
 import { mapPathToMenu } from '@/utils'
-import { Icon } from '@iconify/vue'
 defineProps({
   isFold: {
     type: Boolean,
@@ -68,6 +68,7 @@ const defaultActive = computed(() => {
   const pathMenu = mapPathToMenu(route.path, userMenus)
   return pathMenu.id + ''
 })
+npm
 </script>
 
 <style lang="scss" scoped>

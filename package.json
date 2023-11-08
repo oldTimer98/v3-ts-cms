@@ -13,7 +13,7 @@
     "prettier": "prettier --write .",
     "preinstall": "npx only-allow pnpm",
     "prepare": "husky install",
-    "commit": "git add . & pnpm cz"
+    "commit": "git add . & git cz"
   },
   "dependencies": {
     "axios": "^1.6.0",
@@ -40,12 +40,15 @@
     "@vueuse/core": "^10.5.0",
     "autoprefixer": "^10.4.16",
     "commitizen": "^4.3.0",
+    "commitlint-config-cz": "^0.13.3",
     "cssnano": "^6.0.1",
     "cz-conventional-changelog": "^3.3.0",
+    "cz-customizable": "^7.0.0",
     "dayjs": "^1.11.10",
     "echarts": "^5.4.3",
     "element-plus": "^2.4.1",
     "eslint": "^8.49.0",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-vue": "^9.17.0",
     "husky": "^8.0.3",
     "lint-staged": "^15.0.2",
@@ -73,9 +76,13 @@
   },
   "config": {
     "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
+      "path": "./node_modules/cz-customizable"
+    },
+    "cz-customizable": {
+      "config": ".cz-config.cjs"
     }
   },
+
   "lint-staged": {
     "*.{js,vue,ts,jsx,tsx}": [
       "prettier --write",
