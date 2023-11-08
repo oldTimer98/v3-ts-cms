@@ -1,18 +1,14 @@
+import { defineStore } from 'pinia'
 import {
-  getUserList,
+  changeUser,
+  createUser,
   deleteUser,
   getDepartmentList,
-  getRoleList,
   getMenuList,
-  createUser,
-  changeUser
+  getRoleList,
+  getUserList
 } from '@/service/modules/main'
-import type {
-  Istate,
-  formInfoType,
-  userFormType
-} from '@/store/modules/main/system/type'
-import { defineStore } from 'pinia'
+import type { formInfoType, Istate, userFormType } from '@/store/modules/main/system/type'
 
 export const useSystemStore = defineStore('system', {
   state: (): Istate => {

@@ -24,6 +24,7 @@ module.exports = {
   },
   rules: {
     'vue/multi-word-component-names': 'off',
+    'comma-spacing': ['error', { before: false, after: true }],
     'no-undef': 'off',
     'simple-import-sort/imports': [
       'error',

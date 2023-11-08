@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import { useLoginStore } from '@/store/modules/login'
-import { mapPathToBreadcrumbs, type IBreadcrumbs } from '@/utils'
+import { type IBreadcrumbs, mapPathToBreadcrumbs } from '@/utils'
 const route = useRoute()
 const userMenus = useLoginStore().userMenus
 console.log(mapPathToBreadcrumbs(route.path, userMenus))

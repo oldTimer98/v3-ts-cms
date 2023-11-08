@@ -1,27 +1,25 @@
-import { fileURLToPath, URL } from 'node:url'
-
-import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import { fileURLToPath, URL } from 'node:url'
 import path from 'path'
+import { defineConfig } from 'vite'
 const pathSrc = path.resolve(__dirname, 'src')
 
 // 自动导入插件
-import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/vite'
-//自动导入图标
-import Icons from 'unplugin-icons/vite'
-import IconsResolver from 'unplugin-icons/resolver'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-import VueSetupExtend from 'vite-plugin-vue-setup-extend'
 //自动导入组件库样式文件---elementPlus现在是不需要用的
 // import {
 //   createStyleImportPlugin,
 //   ElementPlusResolve
 // } from 'vite-plugin-style-import'
 // https://vitejs.dev/config/
-
 // 使用unocss
 import Unocss from 'unocss/vite'
+import AutoImport from 'unplugin-auto-import/vite'
+import IconsResolver from 'unplugin-icons/resolver'
+//自动导入图标
+import Icons from 'unplugin-icons/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import Components from 'unplugin-vue-components/vite'
+import VueSetupExtend from 'vite-plugin-vue-setup-extend'
 import { presetIcons } from 'unocss'
 
 export default defineConfig({

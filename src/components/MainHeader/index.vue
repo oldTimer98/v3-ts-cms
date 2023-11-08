@@ -13,8 +13,8 @@
 </template>
 
 <script setup lang="ts">
-import HeaderInfo from './c-cpns/header-info.vue'
 import HeaderCrumb from './c-cpns/header-crumb.vue'
+import HeaderInfo from './c-cpns/header-info.vue'
 const isFold = ref(false)
 // 点击收起事件
 const emits = defineEmits(['foldChange'])

@@ -1,14 +1,10 @@
-import type { IAccount } from '@/service/modules/login/type'
 import { defineStore } from 'pinia'
-import {
-  accountLoginRequest,
-  getUserInfoById,
-  getUserMenusByRoleId
-} from '@/service/modules/login'
-import { localCache } from '@/utils/cache'
 import router from '@/router'
-import { mapMenusToRoutes, mapUserMenuToPermission } from '@/utils'
+import { accountLoginRequest, getUserInfoById, getUserMenusByRoleId } from '@/service/modules/login'
+import type { IAccount } from '@/service/modules/login/type'
 import { useSystemStore } from '@/store/modules/main/system'
+import { mapMenusToRoutes, mapUserMenuToPermission } from '@/utils'
+import { localCache } from '@/utils/cache'
 
 interface ILoginState {
   token: string

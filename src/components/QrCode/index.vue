@@ -57,9 +57,7 @@ const draw = async () => {
   if (props.logo) {
     await drawLogo()
   }
-  imgRef.value.src = qrCode.value
-    ?.getElementsByTagName('canvas')[0]
-    .toDataURL('image/png')
+  imgRef.value.src = qrCode.value?.getElementsByTagName('canvas')[0].toDataURL('image/png')
 }
 onMounted(() => {
   draw()

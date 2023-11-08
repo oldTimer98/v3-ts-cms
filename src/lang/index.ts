@@ -1,5 +1,5 @@
-import { createI18n } from 'vue-i18n'
 import type { I18nOptions } from 'vue-i18n'
+import { createI18n } from 'vue-i18n'
 import store from '@/store'
 import { useThemeStore } from '@/store/modules/theme'
 // 本地语言包
@@ -10,12 +10,10 @@ const themeStore = useThemeStore(store)
 
 function siphonI18n(prefix = 'zh-CN') {
   return Object.fromEntries(
-    Object.entries(import.meta.glob('./**/*.ts', { eager: true })).map(
-      ([key, value]: any) => {
-        const matched = key.match(/([A-Za-z0-9-_]+)\./i)[1]
-        return [matched, value.default]
-      }
-    )
+    Object.entries(import.meta.glob('./**/*.ts', { eager: true })).map(([key, value]: any) => {
+      const matched = key.match(/([A-Za-z0-9-_]+)\./i)[1]
+      return [matched, value.default]
+    })
   )[prefix]
 }
 

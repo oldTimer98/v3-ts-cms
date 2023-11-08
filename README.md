@@ -1,10 +1,10 @@
 # 小米科技后台管理系统
 
-###  父组件获取子组件的数据
+### 父组件获取子组件的数据
 
 在子组件中定义一个函数通过defineExpose进行暴露父组件通过ref获取到子组件的实例来调用函数传递数据
 
- 关键在于在ts中父组件对于子组件的ref的类型如何确定我们可以使用(<InstanceType<typeof UserLogin>>)
+关键在于在ts中父组件对于子组件的ref的类型如何确定我们可以使用(<InstanceType<typeof UserLogin>>)
 
 对齐进行类型推导即可
 
@@ -129,14 +129,14 @@ localCache.setCache('userinfo', userinfo)
 ### css去除滚动条逻辑--less语法
 
 ```less
-  overflow-x: hidden;
-  overflow-y: auto;
-  scrollbar-width: none; /* firefox */
-  -ms-overflow-style: none; /* IE 10+ */
-  transition: width 0.3s ease;
-  &::-webkit-scrollbar {
-    display: none;
-  }
+overflow-x: hidden;
+overflow-y: auto;
+scrollbar-width: none; /* firefox */
+-ms-overflow-style: none; /* IE 10+ */
+transition: width 0.3s ease;
+&::-webkit-scrollbar {
+  display: none;
+}
 ```
 
 ### cssDeep选中元素
@@ -186,13 +186,11 @@ const roles:{
 
 后端添加:这里的枚举类型 让后端给我们返回 json 根据这个json来动态添加到roles 同时后端必须要组织好json给我们前端返回
 
-
-
 方案二:基于菜单的动态路由管理:joy:
 
 我们在请求数据的时候我们曾经请求过一个menus 该menus是根据不同的用户角色来生成的不同的菜单
 
-这洽洽符合我们的要求  我们只需要把这些菜单给动态映射出来刚好就是我们的路由了
+这洽洽符合我们的要求 我们只需要把这些菜单给动态映射出来刚好就是我们的路由了
 
 #### 第一步
 
@@ -202,7 +200,7 @@ const roles:{
 
 这里我们使用coderwhy的自动生成文件夹结构
 
-第一步安装  npm install coderwhy -g
+第一步安装 npm install coderwhy -g
 
 理一下思路我们的view和router是一一对应的我们使用该工具只需要在main页面中生成view他就会自动在router文件夹下生成 对应的路由文件 比如生成以下结构
 
@@ -319,8 +317,8 @@ export default {
 
 ```js
 if (fristRouterUrl === null && route) {
-        fristRouterUrl = submenu
-  }
+  fristRouterUrl = submenu
+}
 ```
 
 直接把这个东西暴露出去再次在路由守卫中拦截一下就行
@@ -414,7 +412,7 @@ currentPage初始值为1
 
 第一次请求 --pageSize=10 currentPage=1
 
-也就是第一次请求为请求数据量10条 请求偏移量为0  一共拿10条数据
+也就是第一次请求为请求数据量10条 请求偏移量为0 一共拿10条数据
 
 当我们点击下一页的时候size为10--- currentPage为2 offset也就是偏移10条数据请求10条数据也就是后面的数据
 
@@ -459,7 +457,7 @@ function handlEditUserData(EditData: any) {
 
 dialog页面
 
-````js
+```js
 function changecenterDialogVisible(iscreate: boolean, EditData?: any) {
   // 当点击编辑以后我们把点击的数据对象拿过来 但是他不是必选的
   centerDialogVisible.value = true
@@ -479,7 +477,7 @@ function changecenterDialogVisible(iscreate: boolean, EditData?: any) {
     }
   }
 }
-````
+```
 
 我们在这里对数据进行展示方便用户进行动态改变
 
@@ -611,11 +609,11 @@ const props = defineProps<IProps>()
 页面中的插入位置展示
 
 ```vue
-   <pagecount
-        :department-coun-config="departmentCounConfig"
-        @create-user="handlcreatepage"
-        @edit-user="handlEdit"
-      >
+<pagecount
+  :department-coun-config="departmentCounConfig"
+  @create-user="handlcreatepage"
+  @edit-user="handlEdit"
+>
         <!-- 这里的具名也要让他给我传递过来 -->
         <template #leader="scope">//这里就是你留下的具名插槽插入位置
           //注意scope会自动收集你在solt上绑定的所有的数据
@@ -631,7 +629,7 @@ const props = defineProps<IProps>()
 
 在做部门管理页面中的新建部门时候我们很容易就能把配置文件搞出来但是上级部门的数据怎么搞呢 我们在配置文件里不好搞，所以我们哟啊使用数据劫持进行二次填充数据
 
-````ts
+```ts
 // 对配置文件数据进行劫持获取全部部门数据给他塞进去
 const departmentDialogdata = computed(() => {
   // 拿到全部部门的数据--这里的数据是name和id我们需要的是lable和value
@@ -646,9 +644,7 @@ const departmentDialogdata = computed(() => {
   })
   return departmentDialogConfig
 })
-````
-
-
+```
 
 ### 细节二
 
@@ -685,7 +681,7 @@ const formInfo = reactive(inittialForm)
 
 在做菜单管理界面的中间部分的时候发现我们需要展示子菜单子菜单需要有一个tree类型列表
 
-如果你想做这种效果不可缺少的属性是``row-key="id"	``
+如果你想做这种效果不可缺少的属性是`row-key="id"	`
 
 需要展示的数据一般是在chliden中我们需要写上这个属性
 
@@ -732,9 +728,7 @@ function mapmenulisttoIds(menuList: any[]) {
 设置的话我们必须在nexttick中设置
 
 ```vue
- nextTick(() => {
-    treeRef?.value?.setCheckedKeys(res)
- })
+nextTick(() => { treeRef?.value?.setCheckedKeys(res) })
 ```
 
 为什么？ :wheel_of_dharma:
@@ -790,7 +784,7 @@ store.$onAction(({ name, after }) => {
 })
 ```
 
-###  对于Echarts的封装
+### 对于Echarts的封装
 
 Echarts主要是依靠与opstion的配置项 所以基本的大小或者初始化数据的逻辑都是一样的 这样吧所有的初始化都写到base中 不同的表格都是基于 base的封装 只需要传递进去一个opstion就行
 
@@ -823,4 +817,3 @@ const roseData = computed(() => {
   return { Xdata, Ydata }
 })
 ```
-

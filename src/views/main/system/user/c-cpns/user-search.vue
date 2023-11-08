@@ -62,9 +62,9 @@
   </div>
 </template>
 <script setup lang="ts">
+import type { ElForm } from 'element-plus'
 import { useSystemStore } from '@/store/modules/main/system'
 import type { formInfoType } from '@/store/modules/main/system/type'
-import type { ElForm } from 'element-plus'
 // 定义初始数据
 
 const form = ref<InstanceType<typeof ElForm>>()

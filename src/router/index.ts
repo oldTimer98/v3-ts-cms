@@ -1,6 +1,6 @@
-import { localCache } from '@/utils'
-import { createRouter, createWebHashHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
+import { localCache } from '@/utils'
 import { firstMenu } from '@/utils/map-menus'
 export const routes: Readonly<RouteRecordRaw[]> = [
   {

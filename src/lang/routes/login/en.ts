@@ -3,8 +3,7 @@ export default {
   login: {
     timeHomestay: 'Time Web',
     slogan: 'High performance / delicate / grace',
-    describe:
-      'Vue3 + element plus based front-end solutions in the background.',
+    describe: 'Vue3 + element plus based front-end solutions in the background.',
     signInTitle: 'Sign in',
     accountLogin: 'Account sign in',
     mobileLogin: 'Mobile sign in',

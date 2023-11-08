@@ -1,7 +1,7 @@
 import config from '@/service/request/config'
 import YzzRequest from '@/service/request/request'
 import { localCache } from '@/utils/cache'
-import { showLoading, hideLoading } from '@/utils/loading'
+import { hideLoading, showLoading } from '@/utils/loading'
 
 const Request = new YzzRequest({
   baseURL: config.BASE_URL,

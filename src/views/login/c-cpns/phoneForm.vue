@@ -27,8 +27,7 @@
           :placeholder="$t('login.smsPlaceholder')"
         ></el-input>
         <el-button @click="getYzm" :disabled="disabled"
-          >{{ $t('login.smsGet')
-          }}<span v-if="disabled"> ({{ time }})</span></el-button
+          >{{ $t('login.smsGet') }}<span v-if="disabled"> ({{ time }})</span></el-button
         >
       </div>
     </el-form-item>
@@ -52,8 +51,8 @@
 </template>
 
 <script setup lang="ts">
-import type { FormInstance, FormRules } from 'element-plus'
 import { useI18n } from 'vue-i18n'
+import type { FormInstance, FormRules } from 'element-plus'
 import useLocale from '@/hooks/useLocale'
 interface formType {
   phone: number | undefined

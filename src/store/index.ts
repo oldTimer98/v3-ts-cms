@@ -1,6 +1,6 @@
-import { useLoginStore } from '@/store/modules/login'
-import { createPinia } from 'pinia'
 import type { App } from 'vue'
+import { createPinia } from 'pinia'
+import { useLoginStore } from '@/store/modules/login'
 
 const store = createPinia()
 

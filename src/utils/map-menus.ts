@@ -78,12 +78,9 @@ function loadLocalRoutes() {
   const localRoutes: RouteRecordRaw[] = []
 
   // 1.1.读取router/main所有的ts文件
-  const files: Record<string, any> = import.meta.glob(
-    '../router/main/**/*.ts',
-    {
-      eager: true
-    }
-  )
+  const files: Record<string, any> = import.meta.glob('../router/main/**/*.ts', {
+    eager: true
+  })
   // 1.2.将加载的对象放到localRoutes
   for (const key in files) {
     const module = files[key]

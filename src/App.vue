@@ -6,9 +6,9 @@
   </div>
 </template>
 <script setup lang="ts">
-import { useThemeStore } from '@/store/modules/theme'
-import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import en from 'element-plus/dist/locale/en.mjs'
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
+import { useThemeStore } from '@/store/modules/theme'
 const themeStore = useThemeStore()
 const locale = computed(() => (themeStore.locale === 'zh-cn' ? zhCn : en))
 const message = reactive({ max: 3 })

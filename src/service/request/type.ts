@@ -1,23 +1,20 @@
 import type {
-  InternalAxiosRequestConfig,
+  AxiosRequestConfig,
   AxiosResponse,
   CreateAxiosDefaults,
-  AxiosRequestConfig
+  InternalAxiosRequestConfig
 } from 'axios'
 // 拦截器对象
 interface RequestInterceptors<T = AxiosResponse> {
   // 请求拦截
-  requestSuccessFn?: (
-    config: InternalAxiosRequestConfig
-  ) => InternalAxiosRequestConfig
+  requestSuccessFn?: (config: InternalAxiosRequestConfig) => InternalAxiosRequestConfig
   requestFailureFn?: (err: any) => any
   // 响应拦截
   responseSuccessFn?: (res: T) => T
   responseFailureFn?: (err: any) => any
 }
 // 自定义传入的参数
-export interface CreateRequestConfig<T = AxiosResponse>
-  extends CreateAxiosDefaults {
+export interface CreateRequestConfig<T = AxiosResponse> extends CreateAxiosDefaults {
   interceptors?: RequestInterceptors<T>
 }
 

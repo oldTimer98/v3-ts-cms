@@ -13,9 +13,9 @@
 </template>
 
 <script setup lang="ts" name="user">
-import userSearch from './c-cpns/user-search.vue'
 import userContent from './c-cpns/user-content.vue'
 import userDialog from './c-cpns/user-dialog.vue'
+import userSearch from './c-cpns/user-search.vue'
 const userDialogRef = ref()
 const userContentRef = ref()
 

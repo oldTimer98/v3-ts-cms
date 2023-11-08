@@ -1,10 +1,6 @@
-import type { CreateRequestConfig, RequestConfig } from '@/service/request/type'
+import type { AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 import axios from 'axios'
-import type {
-  AxiosInstance,
-  AxiosResponse,
-  InternalAxiosRequestConfig
-} from 'axios'
+import type { CreateRequestConfig, RequestConfig } from '@/service/request/type'
 /**
  * 两个难点:
  *  1.拦截器进行精细控制

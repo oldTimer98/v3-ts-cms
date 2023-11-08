@@ -112,11 +112,11 @@
 </template>
 
 <script setup lang="ts" name="login">
-import { useThemeStore } from '@/store/modules/theme'
-import { useAppStore } from '@/store/modules/app'
-import phoneForm from '@/views/login/c-cpns/phoneForm.vue'
-import passwordForm from '@/views/login/c-cpns/passwordForm.vue'
 import useLocale from '@/hooks/useLocale'
+import { useAppStore } from '@/store/modules/app'
+import { useThemeStore } from '@/store/modules/theme'
+import passwordForm from '@/views/login/c-cpns/passwordForm.vue'
+import phoneForm from '@/views/login/c-cpns/phoneForm.vue'
 
 // 切换主题
 const themeStore = useThemeStore()

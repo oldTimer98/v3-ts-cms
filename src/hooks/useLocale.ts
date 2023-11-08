@@ -1,5 +1,5 @@
-import { useThemeStore } from '@/store/modules/theme'
 import { useI18n } from 'vue-i18n'
+import { useThemeStore } from '@/store/modules/theme'
 export default function useLocale() {
   const i18n = useI18n()
   const themeStore = useThemeStore()

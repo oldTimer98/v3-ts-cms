@@ -33,15 +33,10 @@
     </el-form-item>
     <el-form-item style="margin-bottom: 10px">
       <el-col :span="12">
-        <el-checkbox
-          :label="$t('login.rememberMe')"
-          v-model="form.autoLogin"
-        ></el-checkbox>
+        <el-checkbox :label="$t('login.rememberMe')" v-model="form.autoLogin"></el-checkbox>
       </el-col>
       <el-col :span="12" class="login-forgot">
-        <router-link to="/reset_password"
-          >{{ $t('login.forgetPassword') }}？</router-link
-        >
+        <router-link to="/reset_password">{{ $t('login.forgetPassword') }}？</router-link>
       </el-col>
     </el-form-item>
     <el-form-item>
@@ -64,8 +59,8 @@
 </template>
 
 <script setup lang="ts">
-import type { ElForm, FormInstance, FormRules } from 'element-plus'
 import { useI18n } from 'vue-i18n'
+import type { ElForm, FormInstance, FormRules } from 'element-plus'
 import useLocale from '@/hooks/useLocale'
 import { useLoginStore } from '@/store/modules/login'
 import { localCache } from '@/utils'
@@ -90,9 +85,7 @@ watch(
   () => currentLocale.value,
   () => {
     rules.value = {
-      name: [
-        { required: true, message: t('login.userError'), trigger: 'blur' }
-      ],
+      name: [{ required: true, message: t('login.userError'), trigger: 'blur' }],
       password: [
         {
           required: true,
