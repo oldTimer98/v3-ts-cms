@@ -1,6 +1,6 @@
 import { fileURLToPath, URL } from 'node:url'
 
-import { defineConfig, ConfigEnv, UserConfig, loadEnv } from 'vite'
+import { defineConfig, ConfigEnv, UserConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
 const pathSrc = path.resolve(__dirname, 'src')
@@ -8,6 +8,7 @@ const pathSrc = path.resolve(__dirname, 'src')
 // 自动导入插件
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
+//自动导入图标
 import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
@@ -18,17 +19,31 @@ import VueSetupExtend from 'vite-plugin-vue-setup-extend'
 //   ElementPlusResolve
 // } from 'vite-plugin-style-import'
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
-  //获取到env，env获取定义变量
-  const env = loadEnv(mode, process.cwd())
 
+// 使用unocss
+import Unocss from 'unocss/vite'
+import presetUno from 'unocss/preset-uno'
+
+export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
   return {
     plugins: [
       vue(),
       VueSetupExtend(),
       AutoImport({
-        imports: ['vue', 'vue-router'],
-        resolvers: [ElementPlusResolver()],
+        // Auto import functions from Vue, e.g. ref, reactive, toRef...
+        // 自动导入 Vue 相关函数，如：ref, reactive, toRef 等
+        // 自动导入vueuse 以及pinia的storeToRefs
+        imports: ['vue', 'vue-router', { pinia: ['storeToRefs'] }],
+        resolvers: [
+          // Auto import functions from Element Plus, e.g. ElMessage, ElMessageBox... (with style)
+          // 自动导入 Element Plus 相关函数，如：ElMessage, ElMessageBox... (带样式)
+          ElementPlusResolver(),
+          // Auto import icon components
+          // 自动导入图标组件
+          IconsResolver({
+            prefix: 'Icon'
+          })
+        ],
         eslintrc: {
           enabled: true,
           filepath: './.eslintrc-auto-import.json'
@@ -39,14 +54,20 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
         resolvers: [
           // 自动导入 Element Plus 组件
           ElementPlusResolver(),
-          IconsResolver()
+          // Auto register icon components
+          // 自动注册图标组件
+          //默认前缀为i，可自定义前缀
+          IconsResolver({
+            enabledCollections: ['ep']
+            // prefix: 'icon'
+          })
         ],
         dts: path.resolve(pathSrc, 'types', 'components.d.ts') // 指定自动导入组件TS类型声明文件路径
       }),
       Icons({
         compiler: 'vue3',
         autoInstall: true
-      })
+      }),
       /** 针对ElMessage和ElLoading等组件引入样式 */
       // createStyleImportPlugin({
       //   resolves: [ElementPlusResolve()],
@@ -60,6 +81,9 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       //     }
       //   ]
       // })
+      Unocss({
+        presets: [presetUno()]
+      })
     ],
     resolve: {
       alias: {
@@ -75,15 +99,14 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
         }
       }
     },
+    build: {},
     server: {
-      port: 8080,
       open: true,
       proxy: {
-        [env.VITE_APP_BASE_API]: {
-          target: env.VITE_APP_SERVER_PATH,
+        '/api': {
+          target: 'http://codercba.com:5000',
           changeOrigin: true,
-          rewrite: (path: any) =>
-            path.replace(new RegExp('^' + env.VITE_APP_BASE_API), '')
+          rewrite: (path) => path.replace(/^\/api/, '')
         }
       }
     }

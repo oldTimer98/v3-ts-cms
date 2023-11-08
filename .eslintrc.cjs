@@ -15,6 +15,11 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest' //指定 ECMAScript 的版本为最新版本。
   },
+  env: {
+    browser: true,
+    es2021: true,
+    node: true // 加上这行
+  },
   rules: {
     //配置具体的 ESLint 规则
     'prettier/prettier': [

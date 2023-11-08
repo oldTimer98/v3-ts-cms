@@ -3,9 +3,15 @@ import {
   deleteUser,
   getDepartmentList,
   getRoleList,
-  getMenuList
+  getMenuList,
+  createUser,
+  changeUser
 } from '@/service/modules/main'
-import type { Istate, formInfoType } from '@/store/modules/main/system/type'
+import type {
+  Istate,
+  formInfoType,
+  userFormType
+} from '@/store/modules/main/system/type'
 import { defineStore } from 'pinia'
 
 export const useSystemStore = defineStore('system', {
@@ -24,7 +30,7 @@ export const useSystemStore = defineStore('system', {
     }
   },
   actions: {
-    //针对用户管理页面的请求
+    // 查询逻辑
     async getUserListDataAction(formInfo?: formInfoType) {
       const size = this.pageSize
       const offset = (this.currentPage - 1) * size
@@ -37,6 +43,7 @@ export const useSystemStore = defineStore('system', {
       this.list = res.data.list
       this.totalCount = res.data.totalCount
     },
+    // 删除逻辑
     async deleteUserListDataAction(id: number) {
       const res = await deleteUser(id)
       if (res.code === -1002) {
@@ -54,6 +61,38 @@ export const useSystemStore = defineStore('system', {
     async getAllMenusList() {
       const res = await getMenuList()
       this.entireAllMenulist = res?.data?.list
+    },
+    // 清空页码,查询
+    clearPage() {
+      this.currentPage = 1
+      this.pageSize = 10
+      this.getUserListDataAction()
+    },
+    // 新增逻辑
+    async createUserListDataAction(formInfo: userFormType) {
+      const res = await createUser(formInfo)
+      if (res.code === 400) {
+        ElMessage.error('创建用户失败,请检查创建信息是否完善')
+      } else {
+        this.clearPage()
+        ElMessage({
+          message: '创建用户成功',
+          type: 'success'
+        })
+      }
+    },
+    // 编辑逻辑
+    async editUserListAction(id: number, userInfo: userFormType) {
+      const res = await changeUser(id, userInfo)
+      if (res.code === -1003) {
+        ElMessage.error('修改用户信息失败,您的权限不够')
+      } else {
+        this.clearPage()
+        ElMessage({
+          message: '修改用户信息成功',
+          type: 'success'
+        })
+      }
     }
   }
 })

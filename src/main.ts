@@ -2,7 +2,9 @@ import { createApp } from 'vue'
 import App from './App.vue'
 
 import 'normalize.css'
+import '@unocss/reset/tailwind.css' //初始化css
 import '@/assets/css/index.scss'
+import 'uno.css' //引入unocss
 
 import router from '@/router'
 

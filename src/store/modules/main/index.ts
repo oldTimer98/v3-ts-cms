@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 export const useMainStore = defineStore('main', {
-  state: (): Istate => {
+  state: () => {
     return {
       list: [],
       totalCount: 0,

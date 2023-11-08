@@ -1,6 +1,10 @@
 import type { CreateRequestConfig, RequestConfig } from '@/service/request/type'
 import axios from 'axios'
-import type { AxiosInstance, AxiosResponse } from 'axios'
+import type {
+  AxiosInstance,
+  AxiosResponse,
+  InternalAxiosRequestConfig
+} from 'axios'
 /**
  * 两个难点:
  *  1.拦截器进行精细控制
@@ -18,7 +22,7 @@ class YzzRequest {
     // 拦截器执行顺序 接口请求 -> 实例请求 -> 全局请求 -> 实例响应 -> 全局响应 -> 接口响应
     // 请求拦截器
     this.instance.interceptors.request.use(
-      (config) => {
+      (config: InternalAxiosRequestConfig) => {
         // loading/token
         console.log('触发全局请求拦截器')
         return config
@@ -30,7 +34,7 @@ class YzzRequest {
     // 响应拦截器
     this.instance.interceptors.response.use(
       // 因为我们接口的数据都在res.data下，所以我们直接返回res.data
-      (res) => {
+      (res: AxiosResponse) => {
         if (res.status === 400) {
           console.log(res)
         }
@@ -80,10 +84,10 @@ class YzzRequest {
     })
   }
   get<T = any>(config: RequestConfig<T>) {
-    return this.instance.request({ ...config, method: 'GET' })
+    return this.request({ ...config, method: 'GET' })
   }
   post<T = any>(config: RequestConfig<T>) {
-    return this.instance.request({ ...config, method: 'POST' })
+    return this.request({ ...config, method: 'POST' })
   }
   delete<T = any>(config: RequestConfig<T>) {
     return this.request({ ...config, method: 'DELETE' })

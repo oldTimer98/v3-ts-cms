@@ -63,14 +63,13 @@
   </el-dialog>
 </template>
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
 import { useSystemStore } from '@/store/modules/main/system/index'
 import { storeToRefs } from 'pinia'
 import type { userFormType } from '@/store/modules/main/system/type'
 const systemStore = useSystemStore()
 const { entireDepartments, entireRoles } = storeToRefs(systemStore)
 // 定义初始值
-const formData = reactive<userFormType>({
+let formData = ref<userFormType>({
   name: '',
   realname: '',
   password: '',
@@ -83,54 +82,39 @@ const formDataRef = ref()
 const isCreate = ref<boolean>(false) // 是否编辑还是新增
 // 打开页面逻辑
 const centerDialogVisible = ref<boolean>(false)
-const changeCenterDialogVisible = (create: boolean, editData?: any) => {
+const changeCenterDialogVisible = (create: boolean, editList?: any) => {
+  // 打开弹层
   centerDialogVisible.value = true
+  // 是否新增还是修改
   isCreate.value = create
   if (isCreate.value == false) {
-    for (const key in formData) {
-      formData[key] = editData[key]
+    const editData: any = {}
+    for (const key in formData.value) {
+      editData[key] = editList[key]
     }
-    InfoData.value = editData
+    formData.value = editData
+    InfoData.value = editList
   } else {
     // 重置表单
+    formData.value = {
+      name: '',
+      realname: '',
+      password: '',
+      cellphone: '',
+      roleId: undefined,
+      departmentId: undefined
+    }
     formDataRef.value?.resetFields()
   }
 }
 // 保存逻辑
 const enterCenterDialogVisible = () => {
   if (isCreate.value) {
-    centerDialogVisible.value = false
-    // systemStore.CreateuserlistdataAction(formData).then((res: any) => {
-    //   if (res.code == 400) {
-    //     ElMessage.error('创建用户失败,请检查创建信息是否完善')
-    //   } else {
-    //     // 发送新的请求获取新的数据
-    //     systemStore.GetuserlistdataAction(searoinfo)
-    //     ElMessage({
-    //       message: '创建用户成功',
-    //       type: 'success'
-    //     })
-    //   }
-    // })
+    systemStore.createUserListDataAction(formData.value)
   } else {
-    changeUserInfo(InfoData.value.id, formData)
+    systemStore.editUserListAction(InfoData.value.id, formData.value)
   }
-}
-// 编辑逻辑
-const changeUserInfo = (id: number, info: {}) => {
-  // systemStore.ChangeuserlistDataAction(id, info).then((res: any) => {
-  //   centerDialogVisible.value = false
-  //   if (res.code == -1003) {
-  //     ElMessage.error('修改用户信息失败,您的权限不够')
-  //   } else {
-  //     // 发送新的请求获取新的数据
-  //     systemStore.GetuserlistdataAction(searinfo)
-  //     ElMessage({
-  //       message: '修改用户信息成功',
-  //       type: 'success'
-  //     })
-  //   }
-  // })
+  centerDialogVisible.value = false
 }
 defineExpose({ changeCenterDialogVisible })
 </script>

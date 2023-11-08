@@ -1,5 +1,4 @@
 import Request from '@/service'
-
 export function getUserList(info: any) {
   return Request.post({
     url: '/users/list',
