@@ -76,6 +76,9 @@ devDependencies:
   commitlint-config-cz:
     specifier: ^0.13.3
     version: 0.13.3
+  commitlint-config-git-commit-emoji:
+    specifier: ^1.0.0
+    version: 1.0.0
   cssnano:
     specifier: ^6.0.1
     version: 6.0.1(postcss@8.4.31)
@@ -2362,6 +2365,10 @@ packages:
     dependencies:
       app-root-path: 3.0.0
       lodash.clonedeep: 4.5.0
+    dev: true
+
+  /commitlint-config-git-commit-emoji@1.0.0:
+    resolution: {integrity: sha512-AnWvAu50BZ2ikzlsECKya4nAvPdu62RC3U/8wmb8TlSiLbaLrz10jV8On/8tc2UW1C9ckuLQx3WkLhaiFcvPhg==}
     dev: true
 
   /compare-func@2.0.0:

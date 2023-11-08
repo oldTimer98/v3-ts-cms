@@ -41,6 +41,7 @@
     "autoprefixer": "^10.4.16",
     "commitizen": "^4.3.0",
     "commitlint-config-cz": "^0.13.3",
+    "commitlint-config-git-commit-emoji": "^1.0.0",
     "cssnano": "^6.0.1",
     "cz-conventional-changelog": "^3.3.0",
     "cz-customizable": "^7.0.0",
@@ -82,11 +83,10 @@
       "config": ".cz-config.cjs"
     }
   },
-
   "lint-staged": {
     "*.{js,vue,ts,jsx,tsx}": [
-      "prettier --write",
-      "eslint --fix"
+      "eslint --fix",
+      "prettier --write"
     ],
     "*.{html,css,less,scss,md}": [
       "prettier --write"

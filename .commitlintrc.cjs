@@ -9,8 +9,8 @@
 // 'revert',   //回滚到上一个版本
 // 'build',    //编译相关的修改，例如发布版本、对项目构建或者依赖的改动
 module.exports = {
-  // extends: ['@commitlint/config-conventional'],
-  extends: ["cz"],
+  extends: ['@commitlint/config-conventional'],
+  // extends: ['git-commit-emoji', 'cz'],
   // 校验规则
   rules: {
     'type-enum': [
