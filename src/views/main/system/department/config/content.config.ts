@@ -18,7 +18,8 @@ export const contentConfig: contentConfigType = {
       prop: 'name',
       label: '部门名称',
       align: 'center',
-      slotName: 'name'
+      slotName: 'name',
+      width: '100px'
     },
     {
       prop: 'leader',

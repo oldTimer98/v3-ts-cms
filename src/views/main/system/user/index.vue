@@ -1,6 +1,6 @@
 <template>
   <div class="user">
-    <userSearch @search-c-lick="handleSearchClick"></userSearch>
+    <userSearch @search-click="handleSearchClick"></userSearch>
   </div>
   <div class="count">
     <userContent

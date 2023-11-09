@@ -6,6 +6,7 @@ export default function useLocale() {
   const currentLocale = computed(() => {
     return i18n.locale.value
   })
+  //切换语言
   const changeLocale = (value: string) => {
     i18n.locale.value = value
     themeStore.locale = value

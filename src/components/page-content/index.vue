@@ -2,7 +2,7 @@
   <div class="content bg-white p-5 mt-5 rounded-xl">
     <div class="content-header flex justify-between items-center">
       <div class="text-5 font-bold text-#D68A8A">{{ contentConfig.header.title }}</div>
-      <el-button type="primary" size="large" class="!text-4">{{
+      <el-button type="primary" size="large" class="!text-4" @click="createClick">{{
         contentConfig.header.btnText
       }}</el-button>
     </div>
@@ -20,15 +20,11 @@
               <el-button link icon="i-ep-edit" type="warning" @click="handleEdit(scope.row)">
                 编辑
               </el-button>
-              <el-button
-                size="small"
-                icon="Delete"
-                type="danger"
-                text
-                @click="handleDelete(scope.row.id)"
-              >
-                删除
-              </el-button>
+              <el-popconfirm title="您确定删除吗?" @confirm="handleDelete(scope.row.id)">
+                <template #reference>
+                  <el-button type="danger" link icon="i-ep-delete">删除</el-button>
+                </template>
+              </el-popconfirm>
             </template>
           </el-table-column>
         </template>
@@ -45,6 +41,7 @@
       </template>
     </el-table>
     <el-pagination
+      class="mt-4 flex justify-end"
       v-model:current-page="pageInfo.currentPage"
       v-model:page-size="pageInfo.pageSize"
       :page-sizes="[10, 20, 30, 40]"
@@ -56,14 +53,14 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" name="pageContent">
 import { useMainStore } from '@/store/modules/main'
 import type { contentConfigType } from '@/types/config/content.config'
 interface Prop {
   contentConfig: contentConfigType
 }
 const props = defineProps<Prop>()
-console.log(props)
+const emits = defineEmits(['create'])
 const mainStore = useMainStore()
 const { pageInfo, dataList } = storeToRefs(mainStore)
 
@@ -73,12 +70,31 @@ mainStore.queryDataList(props.contentConfig.pageName)
 const handlePageInfoChange = () => {
   mainStore.queryDataList(props.contentConfig.pageName)
 }
+// 新增方法
+const createClick = () => {
+  emits('create')
+}
+// 编辑方法
 const handleEdit = (row: any) => {
   console.log(row)
 }
+// 删除方法
 const handleDelete = (id: number) => {
-  console.log(id)
+  mainStore.deleteDataList(props.contentConfig.pageName, id)
 }
+// 导出的查询方法
+const queryDataList = (data?: any) => {
+  mainStore.queryDataList(props.contentConfig.pageName, data)
+}
+// 导出的重置方法
+const resetDataList = () => {
+  mainStore.resetPagination()
+  queryDataList()
+}
+defineExpose({
+  queryDataList,
+  resetDataList
+})
 </script>
 
 <style lang="scss" scoped>

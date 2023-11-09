@@ -9,6 +9,7 @@
                 <el-input
                   v-model="searchFormData[item.prop as string]"
                   :placeholder="item.placeholder"
+                  clearable
                 ></el-input>
               </el-form-item>
             </template>
@@ -20,6 +21,7 @@
                   range-separator="~"
                   start-placeholder="开始时间"
                   end-placeholder="结束时间"
+                  clearable
                 ></el-date-picker>
               </el-form-item>
             </template>
@@ -44,7 +46,7 @@ const props = defineProps<Prop>()
 const emits = defineEmits(['reset', 'search'])
 const initialFormData: any = {}
 for (const item of props.searchConfig.formItems) {
-  initialFormData[item.prop as string] = item.initialValue ?? ''
+  initialFormData[item.prop as string] = item.initialValue ?? void 0
 }
 const searchFormData = reactive(initialFormData)
 

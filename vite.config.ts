@@ -18,7 +18,6 @@ import IconsResolver from 'unplugin-icons/resolver'
 import Icons from 'unplugin-icons/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
-import eslint from 'vite-plugin-eslint'
 import VueSetupExtend from 'vite-plugin-vue-setup-extend'
 import { presetIcons } from 'unocss'
 
@@ -100,8 +99,7 @@ export default defineConfig({
           }
         }
       ]
-    }),
-    eslint()
+    })
   ],
   resolve: {
     alias: {
