@@ -2,7 +2,7 @@ import type { modalConfigType } from '@/types/config/modal.config'
 
 export const modalConfig: modalConfigType = {
   pageName: 'department',
-  title: '新建部门',
+  title: '部门',
   formItems: [
     { type: 'input', prop: 'name', label: '部门名称', placeholder: '请输入部门名称' },
     {

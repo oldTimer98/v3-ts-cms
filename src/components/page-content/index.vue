@@ -6,7 +6,14 @@
         contentConfig.header.btnText
       }}</el-button>
     </div>
-    <el-table class="content-table mt-2 w-full" border :data="dataList">
+    <el-table
+      class="content-table mt-2 w-full"
+      border
+      :data="dataList"
+      :row-key="contentConfig.table?.rowKey"
+      :tree-props="contentConfig.table?.treeProps"
+      lazy
+    >
       <template v-for="item in contentConfig.propsList" :key="item.prop">
         <template v-if="item.type === 'selection'">
           <el-table-column v-bind="item" />
@@ -46,7 +53,7 @@
       v-model:page-size="pageInfo.pageSize"
       :page-sizes="[10, 20, 30, 40]"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="pageInfo.total"
+      :total="pageInfo?.total"
       @size-change="handlePageInfoChange"
       @current-change="handlePageInfoChange"
     />
@@ -60,7 +67,7 @@ interface Prop {
   contentConfig: contentConfigType
 }
 const props = defineProps<Prop>()
-const emits = defineEmits(['create'])
+const emits = defineEmits(['create', 'edit'])
 const mainStore = useMainStore()
 const { pageInfo, dataList } = storeToRefs(mainStore)
 
@@ -76,7 +83,7 @@ const createClick = () => {
 }
 // 编辑方法
 const handleEdit = (row: any) => {
-  console.log(row)
+  emits('edit', row)
 }
 // 删除方法
 const handleDelete = (id: number) => {

@@ -136,3 +136,36 @@ export function mapUserMenuToPermission(userMenus: any[]) {
   mapPermission(userMenus)
   return permission
 }
+
+export function mapMenuInfoToTree(menuInfo: any) {
+  function recursionMenuInfo(items: any[]) {
+    for (const item of items) {
+      if (item.children) {
+        item.value = item.id
+        item.label = item.name
+        recursionMenuInfo(item.children ?? [])
+      } else {
+        item.value = item.id
+        item.label = item.name
+      }
+    }
+  }
+  recursionMenuInfo(menuInfo)
+  return menuInfo
+}
+
+export function mapMenuChecked(menuList: any[]) {
+  const checkedId: number[] = []
+
+  function recursionMenuList(items: any[]) {
+    for (const item of items) {
+      if (item.children) {
+        recursionMenuList(item.children ?? [])
+      } else {
+        checkedId.push(item.id)
+      }
+    }
+  }
+  recursionMenuList(menuList)
+  return checkedId
+}

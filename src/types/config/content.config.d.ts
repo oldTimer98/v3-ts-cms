@@ -11,4 +11,11 @@ export interface contentConfigType<T = any> {
   }
   pageName: string
   propsList: appTableColumn<T>[]
+  table?: {
+    treeProps?: {
+      children?: string
+      hasChildren?: string
+    }
+    rowKey?: id
+  }
 }

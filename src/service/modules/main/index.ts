@@ -1,4 +1,5 @@
 import Request from '@/service'
+import type { DepartmentListData, MenuListData, RoleListData } from '@/types'
 export function getUserList(info: any) {
   return Request.post({
     url: '/users/list',
@@ -59,19 +60,27 @@ export function getRoleForId(pagename: string, id: any) {
 }
 
 export function getDepartmentList() {
-  return Request.post({
-    url: '/department/list'
+  return Request.post<DepartmentListData>({
+    url: '/department/list',
+    data: {
+      offset: 0,
+      size: 1000
+    }
   })
 }
 
 export function getRoleList() {
-  return Request.post({
-    url: '/role/list'
+  return Request.post<RoleListData>({
+    url: '/role/list',
+    data: {
+      offset: 0,
+      size: 1000
+    }
   })
 }
 
 export function getMenuList() {
-  return Request.post({
+  return Request.post<MenuListData>({
     url: '/menu/list'
   })
 }

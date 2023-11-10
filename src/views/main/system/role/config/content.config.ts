@@ -2,12 +2,16 @@ import type { contentConfigType } from '@/types/config/content.config'
 
 export const contentConfig: contentConfigType = {
   header: {
-    title: '部门列表',
-    btnText: '新建部门'
+    title: '角色列表',
+    btnText: '新建角色'
   },
-  pageName: 'department',
+  pageName: 'role',
   propsList: [
-    { type: 'selection', align: 'center', width: '50px' },
+    {
+      type: 'selection',
+      align: 'center',
+      width: '60px'
+    },
     {
       type: 'index',
       label: '序号',
@@ -16,24 +20,16 @@ export const contentConfig: contentConfigType = {
     },
     {
       prop: 'name',
-      label: '部门名称',
+      label: '角色名称',
       align: 'center',
       slotName: 'name',
-      width: '200px'
+      width: '150px'
     },
     {
-      prop: 'leader',
-      label: '部门领导',
+      prop: 'intro',
+      label: '权限介绍',
       align: 'center',
-      width: '200px',
-      slotName: 'leader'
-    },
-    {
-      prop: 'parentId',
-      label: '上级部门',
-      align: 'center',
-      width: '120px',
-      slotName: 'parentId'
+      slotName: 'intro'
     },
     {
       prop: 'createAt',
@@ -53,7 +49,9 @@ export const contentConfig: contentConfigType = {
       type: 'operation',
       prop: 'operation',
       label: '操作',
-      align: 'center'
+      align: 'center',
+      slotName: 'operate',
+      width: '200px'
     }
   ]
 }

@@ -6,9 +6,6 @@ export interface Istate {
   searchState: any
   pagelist: []
   pagetotalCount: number
-  entireRoles: any[]
-  entireDepartments: any[]
-  entireAllMenulist: any[]
 }
 interface IList {
   id: number

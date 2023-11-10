@@ -1,5 +1,5 @@
 <template>
-  <div class="search bg-white px-20 py-10 rounded-xl">
+  <div class="search bg-white px-10 py-10 rounded-xl">
     <el-form :model="searchFormData" ref="searchFormRef">
       <el-row :gutter="20">
         <template v-for="item in searchConfig.formItems" :key="item.prop">

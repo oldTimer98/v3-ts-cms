@@ -18,8 +18,11 @@
     "commit": "git add . && git cz"
   },
   "dependencies": {
+    "@wangeditor/editor": "^5.1.23",
+    "@wangeditor/editor-for-vue": "^5.1.12",
     "axios": "^1.6.0",
     "pinia": "^2.1.7",
+    "pinia-plugin-persistedstate": "^3.2.0",
     "qrcodejs2-fix": "^0.0.1",
     "vue": "^3.3.4",
     "vue-router": "^4.2.5"
@@ -81,6 +84,7 @@
     "unplugin-icons": "^0.17.3",
     "unplugin-vue-components": "^0.25.2",
     "vite": "^4.4.11",
+    "vite-plugin-compression": "^0.5.1",
     "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-style-import": "^2.0.0",
     "vite-plugin-vue-setup-extend": "^0.4.0",

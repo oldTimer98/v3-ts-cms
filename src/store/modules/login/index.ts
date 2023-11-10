@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import router from '@/router'
 import { accountLoginRequest, getUserInfoById, getUserMenusByRoleId } from '@/service/modules/login'
 import type { IAccount } from '@/service/modules/login/type'
-import { useSystemStore } from '@/store/modules/main/system'
+import { useMainStore } from '@/store/modules/main'
 import { mapMenusToRoutes, mapUserMenuToPermission } from '@/utils'
 import { localCache } from '@/utils/cache'
 
@@ -46,14 +46,9 @@ export const useLoginStore = defineStore('login', {
       const permission = mapUserMenuToPermission(this.userMenus)
       this.permission = [...permission]
 
-      // 请求用户角色列表和菜单列表下拉值
-      const systemStore = useSystemStore()
-      systemStore.getRoleData()
+      // 获取菜单数据等动态加载路由
+      this.loadLocalCacheAction()
 
-      // 重要: 动态的添加路由
-      const routes = mapMenusToRoutes(this.userMenus)
-      console.log(routes)
-      routes.forEach((route) => router.addRoute('main', route))
       // 保存路由消息
       // 5.页面跳转(main页面)
       router.push('/main')
@@ -69,8 +64,8 @@ export const useLoginStore = defineStore('login', {
         this.userMenus = userMenus
 
         // 请求用户角色列表和菜单列表下拉值
-        const systemStore = useSystemStore()
-        systemStore.getRoleData()
+        const mainStore = useMainStore()
+        mainStore.getRoleAndDepartmentList()
 
         // 2.动态添加路由
         const routes = mapMenusToRoutes(this.userMenus)

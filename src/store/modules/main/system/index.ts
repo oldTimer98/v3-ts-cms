@@ -1,13 +1,5 @@
 import { defineStore } from 'pinia'
-import {
-  changeUser,
-  createUser,
-  deleteUser,
-  getDepartmentList,
-  getMenuList,
-  getRoleList,
-  getUserList
-} from '@/service/modules/main'
+import { changeUser, createUser, deleteUser, getUserList } from '@/service/modules/main'
 import type { formInfoType, Istate, userFormType } from '@/store/modules/main/system/type'
 
 export const useSystemStore = defineStore('system', {
@@ -19,10 +11,7 @@ export const useSystemStore = defineStore('system', {
       currentPage: 1,
       searchState: -1,
       pagelist: [],
-      pagetotalCount: 0,
-      entireRoles: [],
-      entireDepartments: [],
-      entireAllMenulist: []
+      pagetotalCount: 0
     }
   },
   actions: {
@@ -47,16 +36,6 @@ export const useSystemStore = defineStore('system', {
       } else {
         ElMessage.success('删除用户成功')
       }
-    },
-    async getRoleData() {
-      const departmentList = await getDepartmentList()
-      const roleList = await getRoleList()
-      this.entireDepartments = departmentList.data.list
-      this.entireRoles = roleList.data.list
-    },
-    async getAllMenusList() {
-      const res = await getMenuList()
-      this.entireAllMenulist = res?.data?.list
     },
     // 清空页码,查询
     clearPage() {

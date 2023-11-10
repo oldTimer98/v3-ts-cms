@@ -18,9 +18,10 @@ import IconsResolver from 'unplugin-icons/resolver'
 import Icons from 'unplugin-icons/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
+//gzip
+import VitePluginCompression from 'vite-plugin-compression'
 import VueSetupExtend from 'vite-plugin-vue-setup-extend'
 import { presetIcons } from 'unocss'
-
 export default defineConfig({
   plugins: [
     vue(),
@@ -99,7 +100,9 @@ export default defineConfig({
           }
         }
       ]
-    })
+    }),
+    // Gzip
+    VitePluginCompression()
   ],
   resolve: {
     alias: {
@@ -115,7 +118,19 @@ export default defineConfig({
       }
     }
   },
-  build: {},
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          echarts: ['echarts']
+        }
+      }
+    },
+    // 关闭生成map文件 可以达到缩小打包体积
+    sourcemap: false,
+    // 关闭文件计算
+    reportCompressedSize: false
+  },
   server: {
     open: true,
     proxy: {
