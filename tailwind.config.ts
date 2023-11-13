@@ -5,6 +5,9 @@ export default {
   theme: {
     extend: {}
   },
+  corePlugins: {
+    preflight: false
+  },
   plugins: [
     // 解决tailwind css与element-plus 样式冲突
     function ({ addBase }) {
