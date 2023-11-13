@@ -148,17 +148,18 @@ export default defineConfig({
     sourcemap: false,
     // 关闭文件计算
     reportCompressedSize: false
+  },
+  server: {
+    open: false,
+    hmr: true,
+    host: '0.0.0.0', // 指定服务器应该监听哪个 IP 地址
+    port: 9003,
+    proxy: {
+      '/api': {
+        target: 'http://codercba.com:5000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    }
   }
-  // server: {
-  //   open: false,
-  //   hmr: true,
-  //   port: 9003,
-  //   proxy: {
-  //     '/api': {
-  //       target: 'http://codercba.com:5000',
-  //       changeOrigin: true,
-  //       rewrite: (path) => path.replace(/^\/api/, '')
-  //     }
-  //   }
-  // }
 })
