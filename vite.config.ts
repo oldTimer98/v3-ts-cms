@@ -148,16 +148,16 @@ export default defineConfig({
     sourcemap: false,
     // 关闭文件计算
     reportCompressedSize: false
-  },
-  server: {
-    open: false,
-    hmr: true,
-    proxy: {
-      '/api': {
-        target: 'http://codercba.com:5000',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '')
-      }
-    }
   }
+  // server: {
+  //   open: false,
+  //   hmr: true,
+  //   proxy: {
+  //     '/api': {
+  //       target: 'http://codercba.com:5000',
+  //       changeOrigin: true,
+  //       rewrite: (path) => path.replace(/^\/api/, '')
+  //     }
+  //   }
+  // }
 })
