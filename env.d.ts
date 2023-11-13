@@ -1,5 +1,4 @@
 /// <reference types="vite/client" />
-
 interface ImportMetaEnv {
   /**
    * 应用标题
@@ -26,3 +25,4 @@ declare module '*.vue' {
 }
 declare module '*.mjs'
 declare module 'qrcodejs2-fix'
+declare module '@wangeditor/editor-for-vue'

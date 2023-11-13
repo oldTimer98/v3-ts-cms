@@ -19,18 +19,9 @@
         <el-form-item label="手机号码" prop="cellphone">
           <el-input v-model="formData.cellphone" placeholder="请输入手机号码" />
         </el-form-item>
-        <el-form-item label="选择角色" prop="roleId">
-          <el-select v-model="formData.roleId" placeholder="请选择角色" style="width: 100%">
-            <template v-for="item in entireRoles" :key="item.id">
-              <el-option :label="item.name" :value="item.id" />
-            </template>
-          </el-select>
-        </el-form-item>
+        <el-form-item label="选择角色" prop="roleId"> </el-form-item>
         <el-form-item label="选择部门" prop="departmentId">
           <el-select v-model="formData.departmentId" placeholder="请选择部门" style="width: 100%">
-            <template v-for="item in entireDepartments" :key="item.id">
-              <el-option :label="item.name" :value="item.id" />
-            </template>
           </el-select>
         </el-form-item>
       </el-form>
@@ -44,11 +35,9 @@
   </el-dialog>
 </template>
 <script setup lang="ts">
-import { storeToRefs } from 'pinia'
 import { useSystemStore } from '@/store/modules/main/system/index'
 import type { userFormType } from '@/store/modules/main/system/type'
 const systemStore = useSystemStore()
-const { entireDepartments, entireRoles } = storeToRefs(systemStore)
 // 定义初始值
 let formData = ref<userFormType>({
   name: '',

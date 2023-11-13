@@ -30,7 +30,7 @@ export default defineConfig({
       // Auto import functions from Vue, e.g. ref, reactive, toRef...
       // 自动导入 Vue 相关函数，如：ref, reactive, toRef 等
       // 自动导入vueuse 以及pinia的storeToRefs
-      imports: ['vue', 'vue-router', { pinia: ['storeToRefs'] }],
+      imports: ['vue', 'vue-router', { pinia: ['storeToRefs'] }, '@vueuse/core'],
       resolvers: [
         // Auto import functions from Element Plus, e.g. ElMessage, ElMessageBox... (with style)
         // 自动导入 Element Plus 相关函数，如：ElMessage, ElMessageBox... (带样式)
