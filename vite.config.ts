@@ -119,11 +119,29 @@ export default defineConfig({
     }
   },
   build: {
+    outDir: 'dist',
+    minify: 'terser',
+    cssCodeSplit: true,
+    chunkSizeWarningLimit: 1500,
     rollupOptions: {
+      input: 'index.html',
       output: {
-        manualChunks: {
-          echarts: ['echarts']
+        // 静态资源打包做处理
+        chunkFileNames: 'assets/js/[name]-[hash].js',
+        entryFileNames: 'assets/js/[name]-[hash].js',
+        assetFileNames: 'assets/[ext]/[name]-[hash].[ext]',
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            return id.toString().split('node_modules/')[1].split('/')[0].toString()
+          }
         }
+      }
+    },
+    terserOptions: {
+      // 清除console和debugger
+      compress: {
+        drop_console: true,
+        drop_debugger: true
       }
     },
     // 关闭生成map文件 可以达到缩小打包体积
@@ -132,7 +150,8 @@ export default defineConfig({
     reportCompressedSize: false
   },
   server: {
-    open: true,
+    open: false,
+    hmr: true,
     proxy: {
       '/api': {
         target: 'http://codercba.com:5000',
