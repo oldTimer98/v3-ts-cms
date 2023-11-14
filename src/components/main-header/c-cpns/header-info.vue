@@ -4,8 +4,11 @@
     <el-icon size="20px" class="cursor-pointer hover:animate-bounce-alt !animate-iteration-1"
       ><Message
     /></el-icon>
-    <el-badge is-dot>
-      <el-icon size="20px" class="ml-4"><ChatDotRound /></el-icon>
+    <el-badge
+      is-dot
+      class="ml-4 flex items-center cursor-pointer hover:animate-bounce-alt !animate-iteration-1"
+    >
+      <el-icon size="20px"><ChatDotRound /></el-icon>
     </el-badge>
     <el-icon size="20px" class="cursor-pointer ml-4 hover:animate-bounce-alt !animate-iteration-1"
       ><Search

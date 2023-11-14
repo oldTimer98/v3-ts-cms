@@ -29,7 +29,6 @@ declare module 'vue' {
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElHeader: typeof import('element-plus/es')['ElHeader']
     ElIcon: typeof import('element-plus/es')['ElIcon']
-    ElImage: typeof import('element-plus/es')['ElImage']
     ElInput: typeof import('element-plus/es')['ElInput']
     ElMain: typeof import('element-plus/es')['ElMain']
     ElMenu: typeof import('element-plus/es')['ElMenu']
@@ -48,14 +47,10 @@ declare module 'vue' {
     ElTabs: typeof import('element-plus/es')['ElTabs']
     ElTag: typeof import('element-plus/es')['ElTag']
     ElTree: typeof import('element-plus/es')['ElTree']
-    ElTreeSelect: typeof import('element-plus/es')['ElTreeSelect']
     HeaderCrumb: typeof import('./../components/main-header/c-cpns/header-crumb.vue')['default']
     HeaderInfo: typeof import('./../components/main-header/c-cpns/header-info.vue')['default']
     IEpChromeFilled: typeof import('~icons/ep/chrome-filled')['default']
     IEpElementPlus: typeof import('~icons/ep/element-plus')['default']
-    IEpRefresh: typeof import('~icons/ep/refresh')['default']
-    IEpSearch: typeof import('~icons/ep/search')['default']
-    IEpUserFilled: typeof import('~icons/ep/user-filled')['default']
     IEpWarning: typeof import('~icons/ep/warning')['default']
     LineChart: typeof import('./../components/echarts/src/line-chart.vue')['default']
     MainHeader: typeof import('./../components/main-header/index.vue')['default']
@@ -72,8 +67,5 @@ declare module 'vue' {
     RoseChart: typeof import('./../components/echarts/src/rose-chart.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-  }
-  export interface ComponentCustomProperties {
-    vInfiniteScroll: typeof import('element-plus/es')['ElInfiniteScroll']
   }
 }
